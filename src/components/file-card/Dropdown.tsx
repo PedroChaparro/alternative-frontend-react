@@ -42,7 +42,7 @@ const getMenuOptions = (isFile: boolean) => {
 
   if (isFile) {
     return (
-      <DropdownMenuContent>
+      <DropdownMenuContent className="w-48">
         <DropdownMenuItem>
           <Download className="mr-2 h-4 w-4" />
           Download file
@@ -52,7 +52,7 @@ const getMenuOptions = (isFile: boolean) => {
     );
   } else {
     return (
-      <DropdownMenuContent className="w-52">
+      <DropdownMenuContent className="w-48">
         {sharedActions}
       </DropdownMenuContent>
     );
