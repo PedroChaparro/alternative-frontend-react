@@ -109,8 +109,8 @@ jobs:
         id: playwright-cache
         with: 
           path: |
-            ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}
+            ~/.cache/ms-playwright/chromium-*
+          key: ${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}-chromium
 
       - name: Install Playwright browser
         run: pnpx playwright install --with-deps chromium
@@ -161,8 +161,8 @@ jobs:
         id: playwright-cache
         with: 
           path: |
-            ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}
+            ~/.cache/ms-playwright/firefox-*
+          key: ${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}-firefox
 
       - name: Install Playwright browser
         run: pnpx playwright install --with-deps firefox
