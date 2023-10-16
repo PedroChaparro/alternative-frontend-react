@@ -6,8 +6,10 @@ import { Toaster } from "sonner";
 import { Navbar } from "./components/Navbar/Navbar";
 import { AuthMiddleware } from "./components/middlewares/AuthMiddleware";
 import { AuthContextProvider } from "./context/AuthContext";
+import { UserFilesProvider } from "./context/UserFilesContext";
 import "./index.css";
-import { LoginPage, RegisterPage } from "./screens";
+import { FilesView, LoginPage, RegisterPage } from "./screens";
+import { FilesPageLayout } from "./screens/files/FilesLayout";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -32,6 +34,25 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
               </AuthMiddleware>
             }
           />
+          <Route
+            path="/files"
+            element={
+              <AuthMiddleware mustBeLoggedIn>
+                <FilesPageLayout />
+              </AuthMiddleware>
+            }
+          >
+            <Route
+              path=""
+              element={
+                <AuthMiddleware mustBeLoggedIn={true}>
+                  <UserFilesProvider>
+                    <FilesView />
+                  </UserFilesProvider>
+                </AuthMiddleware>
+              }
+            />
+          </Route>
         </Routes>
       </BrowserRouter>
     </AuthContextProvider>
