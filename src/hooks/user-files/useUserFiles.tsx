@@ -1,9 +1,10 @@
 import { AuthContext } from "@/context/AuthContext";
 import { listFilesService } from "@/services/files/list-files.service";
-import { File } from "@/types/entities";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useReducer, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "sonner";
+
+import { UserFilesActionTypes, userFilesReducer } from "./UserFilesReducer";
 
 export const useUserFiles = () => {
   // Router state
@@ -16,7 +17,7 @@ export const useUserFiles = () => {
 
   // User files state
   const [loading, setLoading] = useState(false);
-  const [userFiles, setUserFiles] = useState<File[]>([]);
+  const [userFiles, userFilesDispatcher] = useReducer(userFilesReducer, []);
 
   // Get the user files when the directory changes
   useEffect(() => {
@@ -32,7 +33,10 @@ export const useUserFiles = () => {
         navigate("/");
       }
 
-      setUserFiles(response.files);
+      userFilesDispatcher({
+        type: UserFilesActionTypes.SET_FILES,
+        payload: response.files
+      });
       setLoading(false);
     };
 
@@ -41,6 +45,7 @@ export const useUserFiles = () => {
 
   return {
     loading,
-    userFiles
+    userFiles,
+    userFilesDispatcher
   };
 };
