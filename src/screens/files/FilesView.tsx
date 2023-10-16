@@ -51,7 +51,7 @@ export const FilesView = () => {
   };
 
   return (
-    <main className="mx-auto max-w-7xl p-4">
+    <main className="md:col-span-3">
       <section className="flex flex-row flex-wrap items-stretch justify-center gap-8 md:justify-start">
         {renderUserFiles()}
       </section>
