@@ -44,9 +44,11 @@ export const FileCard = ({ file }: { file: File }) => {
     >
       {<DropDown file={file} />}
       {getFileIcon(file.isFile)}
-      <span className="line-clamp-1 text-lg font-semibold">{file.name}</span>
+      <span className="line-clamp-1 max-w-full text-lg font-semibold">
+        {file.name}
+      </span>
       {file.isFile && (
-        <span className="line-clamp-1 text-sm text-foreground/75">
+        <span className="line-clamp-1 max-w-full text-sm text-foreground/75">
           <span className="font-semibold">Size:</span> {file.size} KB
         </span>
       )}
