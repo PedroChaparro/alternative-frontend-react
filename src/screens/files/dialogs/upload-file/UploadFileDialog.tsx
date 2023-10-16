@@ -15,6 +15,7 @@ import { UploadFileForm } from "./UploadFileForm";
 export const UploadFileDialog = () => {
   // Modal state
   const [isOpen, setIsOpen] = useState(false);
+  const closeDialog = () => setIsOpen(false);
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -32,7 +33,7 @@ export const UploadFileDialog = () => {
             button when you're done.
           </DialogDescription>
         </DialogHeader>
-        <UploadFileForm />
+        <UploadFileForm closeDialogCallback={closeDialog} />
       </DialogContent>
     </Dialog>
   );

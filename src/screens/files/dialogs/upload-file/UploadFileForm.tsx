@@ -9,7 +9,13 @@ import { useContext, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { toast } from "sonner";
 
-export const UploadFileForm = () => {
+interface UploadFileFormProps {
+  closeDialogCallback: () => void;
+}
+
+export const UploadFileForm = ({
+  closeDialogCallback
+}: UploadFileFormProps) => {
   // Auth state
   const { session } = useContext(AuthContext);
 
@@ -57,6 +63,8 @@ export const UploadFileForm = () => {
 
     try {
       const filesUploadRes = await Promise.all(promises);
+      closeDialogCallback();
+
       filesUploadRes.forEach((res) => {
         const { success } = res;
         if (!success) {
