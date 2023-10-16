@@ -99,7 +99,12 @@ export const UploadFileForm = ({
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <Input type="file" multiple={true} onChange={handleInputChange} />
+        <Input
+          type="file"
+          multiple={true}
+          onChange={handleInputChange}
+          aria-label="Choose files to upload"
+        />
         <div className="mt-4 flex justify-end">
           <Button type="submit">Upload</Button>
         </div>
