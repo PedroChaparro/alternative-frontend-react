@@ -4,7 +4,6 @@ import axios, { AxiosError } from "axios";
 type RegisterRequest = {
   username: string;
   password: string;
-  confirmPassword: string;
 };
 
 type RegisterResponse = {

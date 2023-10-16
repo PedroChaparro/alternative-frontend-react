@@ -6,7 +6,7 @@ import { Toaster } from "sonner";
 import { Navbar } from "./components/Navbar/Navbar";
 import { AuthContextProvider } from "./context/AuthContext";
 import "./index.css";
-import { LoginPage } from "./screens";
+import { LoginPage, RegisterPage } from "./screens";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -16,6 +16,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Toaster expand closeButton richColors />
         <Routes>
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
         </Routes>
       </BrowserRouter>
     </AuthContextProvider>
