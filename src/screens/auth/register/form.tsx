@@ -54,7 +54,7 @@ export function RegisterForm() {
     logIn(values.username, response.token);
   }
 
-  const checkPasswordsMatch = (): Boolean => {
+  const checkPasswordsMatch = (): boolean => {
     if (form.getValues("password") !== form.getValues("confirmPassword")) {
       form.setError("confirmPassword", {
         message: "Passwords do not match"
