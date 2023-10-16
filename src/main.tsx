@@ -1,11 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster } from "sonner";
 
 import { Navbar } from "./components/Navbar/Navbar";
 import { AuthContextProvider } from "./context/AuthContext";
 import "./index.css";
+import { LoginPage } from "./screens";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -13,7 +14,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <BrowserRouter>
         <Navbar />
         <Toaster expand closeButton richColors />
-        <Routes></Routes>
+        <Routes>
+          <Route path="/login" element={<LoginPage />} />
+        </Routes>
       </BrowserRouter>
     </AuthContextProvider>
   </React.StrictMode>

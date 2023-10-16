@@ -5,7 +5,10 @@ import { SessionState, useSession } from "../hooks/UseSession";
 interface AuthContextState {
   session: SessionState | null;
   isSessionLoading: boolean;
-  login: (_username: string, _password: string) => Promise<boolean>;
+  login: (
+    _username: string,
+    _password: string
+  ) => Promise<{ success: boolean; msg: string }>;
   logout: () => void;
   updateSession: (username: string, token: string) => void;
 }
@@ -13,7 +16,7 @@ interface AuthContextState {
 export const AuthContext = createContext<AuthContextState>({
   session: null,
   isSessionLoading: true,
-  login: async () => false,
+  login: async () => ({ success: false, msg: "" }),
   logout: () => {},
   updateSession: () => {}
 });

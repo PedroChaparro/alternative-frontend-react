@@ -1,6 +1,5 @@
 import { challengeService, loginService } from "@/services/auth/index";
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
 
 import { useLocalStorage } from "./UseLocalStorage";
 
@@ -57,19 +56,17 @@ export const useSession = () => {
   const login = async (
     username: string,
     password: string
-  ): Promise<boolean> => {
+  ): Promise<{ success: boolean; msg: string }> => {
     setLoading(true);
 
     const { success, ...res } = await loginService({ username, password });
     if (!success) {
-      toast.error(res.msg);
       setLoading(false);
-      return false;
+      return { success, msg: res.msg };
     }
 
     updateSession(username, res.token);
-    toast.success(res.msg);
-    return true;
+    return { success, msg: "You have successfully logged in" };
   };
 
   const updateSession = (username: string, token: string) => {
