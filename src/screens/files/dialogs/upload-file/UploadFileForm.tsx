@@ -1,7 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { AuthContext } from "@/context/AuthContext";
+import { UserFilesContext } from "@/context/UserFilesContext";
+import { UserFilesActionTypes } from "@/hooks/user-files/UserFilesReducer";
 import { uploadFileService } from "@/services/files/upload-file.service";
+import { File } from "@/types/entities";
 import { useContext, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { toast } from "sonner";
@@ -15,6 +18,7 @@ export const UploadFileForm = () => {
   const directory = params.get("directory");
 
   // Files state
+  const { userFilesDispatcher } = useContext(UserFilesContext);
   const [files, setFiles] = useState<FileList | null>(null);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,6 +63,23 @@ export const UploadFileForm = () => {
           toast.error(res.msg);
           return;
         }
+
+        // Add file to state
+        const newFile: File = {
+          // Known properties
+          uuid: res.fileUUID,
+          isReady: false,
+          isFile: true,
+
+          // Zero values
+          name: "",
+          size: 0
+        };
+
+        userFilesDispatcher({
+          type: UserFilesActionTypes.ADD_FILE,
+          payload: newFile
+        });
 
         toast.success(res.msg);
       });

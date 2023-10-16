@@ -32,7 +32,7 @@ export const listFilesService = async (
     return {
       success: true,
       msg: data.msg,
-      files: data.files
+      files: data.files.map((file: File) => ({ ...file, isReady: true }))
     };
   } catch (error) {
     let errorMsg = "There was an error while trying to list files";

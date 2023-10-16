@@ -3,5 +3,6 @@ export type File = {
   isFile: boolean;
   uuid: string;
   size: number;
+  isReady: boolean;
   extension?: string;
 };
