@@ -15,11 +15,12 @@ export const FilesView = () => {
 
   const { session } = useContext(AuthContext);
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [userFiles, setUserFiles] = useState<File[]>([]);
 
   useEffect(() => {
     const getFiles = async () => {
+      setLoading(true);
       const { success, ...response } = await listFilesService({
         token: session?.token || "",
         directory
@@ -39,7 +40,7 @@ export const FilesView = () => {
 
   const renderUserFiles = () => {
     if (loading) {
-      const skeletons = Array.from({ length: 6 }).map((_, index) => (
+      const skeletons = Array.from({ length: 4 }).map((_, index) => (
         <FileCardSkeleton key={`file-card-skeleton-${index}`} />
       ));
 
