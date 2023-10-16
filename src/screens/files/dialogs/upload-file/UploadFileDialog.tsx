@@ -14,7 +14,7 @@ import { UploadFileForm } from "./UploadFileForm";
 
 export const UploadFileDialog = () => {
   // Modal state
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
