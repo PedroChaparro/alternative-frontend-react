@@ -4,7 +4,7 @@ import axios, { AxiosError } from "axios";
 
 type ListFilesRequest = {
   token: string;
-  directory?: string;
+  directory: string | null;
 };
 
 type ListFilesResponse = {
@@ -17,7 +17,7 @@ export const listFilesService = async (
   req: ListFilesRequest
 ): Promise<ListFilesResponse> => {
   const URL = req.directory
-    ? `${ENVIRONMENT.PROXY_BASE_URL}/file/list?directory=${req.directory}`
+    ? `${ENVIRONMENT.PROXY_BASE_URL}/file/list?directoryUUID=${req.directory}`
     : `${ENVIRONMENT.PROXY_BASE_URL}/file/list`;
 
   try {

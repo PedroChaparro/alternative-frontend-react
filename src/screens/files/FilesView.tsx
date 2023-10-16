@@ -5,11 +5,13 @@ import { AuthContext } from "@/context/AuthContext";
 import { listFilesService } from "@/services/files/list-files.service";
 import { File } from "@/types/entities";
 import { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "sonner";
 
 export const FilesView = () => {
   const navigate = useNavigate();
+  const [params, _setParams] = useSearchParams();
+  const directory = params.get("directory");
 
   const { session } = useContext(AuthContext);
 
@@ -19,7 +21,8 @@ export const FilesView = () => {
   useEffect(() => {
     const getFiles = async () => {
       const { success, ...response } = await listFilesService({
-        token: session?.token || ""
+        token: session?.token || "",
+        directory
       });
       if (!success) {
         setLoading(false);
@@ -32,7 +35,7 @@ export const FilesView = () => {
     };
 
     getFiles();
-  }, []);
+  }, [directory]);
 
   const renderUserFiles = () => {
     if (loading) {
@@ -51,7 +54,7 @@ export const FilesView = () => {
   };
 
   return (
-    <main className="md:col-span-3">
+    <main className="md:col-span-3" key={directory}>
       <section className="flex flex-row flex-wrap items-stretch justify-center gap-8 md:justify-start">
         {renderUserFiles()}
       </section>

@@ -1,5 +1,6 @@
 import { File } from "@/types/entities";
 import { FileText, FolderOpen } from "lucide-react";
+import { useSearchParams } from "react-router-dom";
 
 const getFileIcon = (isFile: boolean) => {
   if (isFile) {
@@ -24,12 +25,14 @@ const getFileIcon = (isFile: boolean) => {
 };
 
 export const FileCard = ({ file }: { file: File }) => {
+  const [_params, setParams] = useSearchParams();
+
   const downloadFile = () => {
     console.log("Downloading file");
   };
 
   const navigateToFolder = () => {
-    console.log("Navigating to folder");
+    setParams({ directory: file.uuid });
   };
 
   return (
