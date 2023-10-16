@@ -1,8 +1,16 @@
+import { PARAMETERS } from "@/config/parameters";
+import { AuthContext } from "@/context/AuthContext";
+import { UserFilesContext } from "@/context/UserFilesContext";
+import { UserFilesActionTypes } from "@/hooks/user-files/UserFilesReducer";
+import { getFileByUUIDService } from "@/services/files/get-file-by-uuid.service";
 import { File } from "@/types/entities";
 import { FileText, FolderOpen } from "lucide-react";
+import { useContext, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
+import { toast } from "sonner";
 
 import { DropDown } from "./Dropdown";
+import { FileCardSkeleton } from "./FileCardSkeleton";
 
 const getFileIcon = (isFile: boolean) => {
   if (isFile) {
@@ -27,6 +35,8 @@ const getFileIcon = (isFile: boolean) => {
 };
 
 export const FileCard = ({ file }: { file: File }) => {
+  const { session } = useContext(AuthContext);
+  const { userFilesDispatcher } = useContext(UserFilesContext);
   const [_params, setParams] = useSearchParams();
 
   const downloadFile = () => {
@@ -37,19 +47,85 @@ export const FileCard = ({ file }: { file: File }) => {
     setParams({ directory: file.uuid });
   };
 
-  return (
-    <button
-      className="relative flex w-52 cursor-pointer flex-col items-center space-y-2 rounded-md border bg-primary-foreground/25 p-4 shadow-none transition-colors hover:bg-primary-foreground/75 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-      onClick={file.isFile ? downloadFile : navigateToFolder}
-    >
-      {<DropDown file={file} />}
-      {getFileIcon(file.isFile)}
-      <span className="line-clamp-1 text-lg font-semibold">{file.name}</span>
-      {file.isFile && (
-        <span className="line-clamp-1 text-sm text-foreground/75">
-          <span className="font-semibold">Size:</span> {file.size} KB
+  useEffect(() => {
+    if (file.isReady) {
+      return;
+    }
+
+    let readyTries = 0;
+
+    const checkIfFileIsReady = async (): Promise<boolean> => {
+      const { success, ...res } = await getFileByUUIDService({
+        fileUUID: file.uuid,
+        token: session?.token || ""
+      });
+
+      if (!success || !res.file) {
+        readyTries++;
+        return false;
+      }
+
+      userFilesDispatcher({
+        type: UserFilesActionTypes.MARK_FILE_AS_READY,
+        payload: res.file
+      });
+
+      return true;
+    };
+
+    // Check if the file is ready until the max tries is reached
+    const interval = setInterval(() => {
+      if (readyTries >= PARAMETERS.MAX_READY_CHECKS) {
+        toast.error("Max ready checks reached");
+
+        // Remove file from the UI
+        userFilesDispatcher({
+          type: UserFilesActionTypes.REMOVE_FILE,
+          payload: file
+        });
+
+        // Stop trying to check if the file is ready
+        clearInterval(interval);
+        return;
+      }
+
+      checkIfFileIsReady().then((isReady) => {
+        // Stop trying to check if the file is ready
+        if (isReady) {
+          clearInterval(interval);
+        }
+      });
+    }, PARAMETERS.CHECK_IF_FILE_IS_READY_INTERVAL);
+
+    // Clean the interval when the component unmounts
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+
+  const renderFile = () => {
+    if (!file.isReady) {
+      return <FileCardSkeleton />;
+    }
+
+    return (
+      <button
+        className="relative flex w-52 cursor-pointer flex-col items-center space-y-2 rounded-md border bg-primary-foreground/25 p-4 shadow-none transition-colors hover:bg-primary-foreground/75 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        onClick={file.isFile ? downloadFile : navigateToFolder}
+      >
+        {<DropDown file={file} />}
+        {getFileIcon(file.isFile)}
+        <span className="line-clamp-1 max-w-full text-lg font-semibold">
+          {file.name}
         </span>
-      )}
-    </button>
-  );
+        {file.isFile && (
+          <span className="line-clamp-1 max-w-full text-sm text-foreground/75">
+            <span className="font-semibold">Size:</span> {file.size} KB
+          </span>
+        )}
+      </button>
+    );
+  };
+
+  return renderFile();
 };
