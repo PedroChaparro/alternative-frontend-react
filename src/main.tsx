@@ -6,6 +6,7 @@ import { Toaster } from "sonner";
 import { Navbar } from "./components/Navbar/Navbar";
 import { AuthMiddleware } from "./components/middlewares/AuthMiddleware";
 import { AuthContextProvider } from "./context/AuthContext";
+import { UserFilesProvider } from "./context/UserFilesContext";
 import "./index.css";
 import { FilesView, LoginPage, RegisterPage } from "./screens";
 import { FilesPageLayout } from "./screens/files/FilesLayout";
@@ -45,7 +46,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
               path=""
               element={
                 <AuthMiddleware mustBeLoggedIn={true}>
-                  <FilesView />
+                  <UserFilesProvider>
+                    <FilesView />
+                  </UserFilesProvider>
                 </AuthMiddleware>
               }
             />
