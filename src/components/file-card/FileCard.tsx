@@ -2,6 +2,8 @@ import { File } from "@/types/entities";
 import { FileText, FolderOpen } from "lucide-react";
 import { useSearchParams } from "react-router-dom";
 
+import { DropDown } from "./Dropdown";
+
 const getFileIcon = (isFile: boolean) => {
   if (isFile) {
     return (
@@ -40,6 +42,7 @@ export const FileCard = ({ file }: { file: File }) => {
       className="relative flex w-52 cursor-pointer flex-col items-center space-y-2 rounded-md border bg-primary-foreground/25 p-4 shadow-none transition-colors hover:bg-primary-foreground/75 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
       onClick={file.isFile ? downloadFile : navigateToFolder}
     >
+      {<DropDown file={file} />}
       {getFileIcon(file.isFile)}
       <span className="line-clamp-1 text-lg font-semibold">{file.name}</span>
       {file.isFile && (
