@@ -38,7 +38,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             path="/files"
             element={
               <AuthMiddleware mustBeLoggedIn>
-                <FilesPageLayout />
+                <UserFilesProvider>
+                  <FilesPageLayout />
+                </UserFilesProvider>
               </AuthMiddleware>
             }
           >
@@ -46,9 +48,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
               path=""
               element={
                 <AuthMiddleware mustBeLoggedIn={true}>
-                  <UserFilesProvider>
-                    <FilesView />
-                  </UserFilesProvider>
+                  <FilesView />
                 </AuthMiddleware>
               }
             />
