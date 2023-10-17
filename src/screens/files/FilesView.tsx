@@ -5,6 +5,8 @@ import { UserFilesContext } from "@/context/UserFilesContext";
 import { useContext } from "react";
 import { useSearchParams } from "react-router-dom";
 
+import { RenameFileDialog } from "./dialogs/rename-file/RenameFileDialog";
+
 export const FilesView = () => {
   const [params, _setParams] = useSearchParams();
   const directory = params.get("directory");
@@ -32,6 +34,7 @@ export const FilesView = () => {
       <section className="flex flex-row flex-wrap items-stretch justify-center gap-8 md:justify-start">
         {renderUserFiles()}
       </section>
+      <RenameFileDialog />
     </main>
   );
 };

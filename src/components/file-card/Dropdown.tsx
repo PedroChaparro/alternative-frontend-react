@@ -1,7 +1,17 @@
 "use client";
 
+import { FilesDialogsContext } from "@/context/FilesDialogsContext";
 import { File } from "@/types/entities";
-import { Download, Key, MoreVertical, Trash2, Truck } from "lucide-react";
+import { Dialogs } from "@/types/enums";
+import {
+  Download,
+  Key,
+  MoreVertical,
+  PenBox,
+  Trash2,
+  Truck
+} from "lucide-react";
+import { useContext } from "react";
 
 import { Button } from "../ui/button";
 import {
@@ -11,44 +21,50 @@ import {
   DropdownMenuTrigger
 } from "../ui/dropdown-menu";
 
-const getMenuOptions = (isFile: boolean) => {
-  const sharedActions = (
-    <>
-      <DropdownMenuItem>
-        <Key className="mr-2 h-4 w-4" />
-        Manage access
-      </DropdownMenuItem>
-      <DropdownMenuItem>
-        <Truck className="mr-2 h-4 w-4" />
-        Move {isFile ? "file" : "directory"}
-      </DropdownMenuItem>
-      <DropdownMenuItem>
-        <Trash2 className="mr-2 h-4 w-4" />
-        Remove {isFile ? "file" : "directory"}
-      </DropdownMenuItem>
-    </>
-  );
-
-  if (isFile) {
-    return (
-      <DropdownMenuContent className="w-48">
-        <DropdownMenuItem>
-          <Download className="mr-2 h-4 w-4" />
-          Download file
-        </DropdownMenuItem>
-        {sharedActions}
-      </DropdownMenuContent>
-    );
-  } else {
-    return (
-      <DropdownMenuContent className="w-48">
-        {sharedActions}
-      </DropdownMenuContent>
-    );
-  }
-};
-
 export const DropDown = ({ file }: { file: File }) => {
+  const { openDialog } = useContext(FilesDialogsContext);
+
+  const getMenuOptions = () => {
+    const sharedActions = (
+      <>
+        <DropdownMenuItem>
+          <Key className="mr-2 h-4 w-4" />
+          Manage access
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => openDialog(Dialogs.RENAME_FILE, file)}>
+          <PenBox className="mr-2 h-4 w-4" />
+          Rename {file.isFile ? "file" : "directory"}
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <Truck className="mr-2 h-4 w-4" />
+          Move {file.isFile ? "file" : "directory"}
+        </DropdownMenuItem>
+        <DropdownMenuItem>
+          <Trash2 className="mr-2 h-4 w-4" />
+          Remove {file.isFile ? "file" : "directory"}
+        </DropdownMenuItem>
+      </>
+    );
+
+    if (file.isFile) {
+      return (
+        <DropdownMenuContent className="w-48">
+          <DropdownMenuItem>
+            <Download className="mr-2 h-4 w-4" />
+            Download file
+          </DropdownMenuItem>
+          {sharedActions}
+        </DropdownMenuContent>
+      );
+    } else {
+      return (
+        <DropdownMenuContent className="w-48">
+          {sharedActions}
+        </DropdownMenuContent>
+      );
+    }
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -60,7 +76,7 @@ export const DropDown = ({ file }: { file: File }) => {
           <MoreVertical />
         </Button>
       </DropdownMenuTrigger>
-      {getMenuOptions(file.isFile)}
+      {getMenuOptions()}
     </DropdownMenu>
   );
 };
