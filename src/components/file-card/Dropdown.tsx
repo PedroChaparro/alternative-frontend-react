@@ -1,14 +1,7 @@
 "use client";
 
 import { File } from "@/types/entities";
-import {
-  Download,
-  Key,
-  MoreVertical,
-  Share2Icon,
-  Trash2,
-  Truck
-} from "lucide-react";
+import { Download, Key, MoreVertical, Trash2, Truck } from "lucide-react";
 
 import { Button } from "../ui/button";
 import {
@@ -21,10 +14,6 @@ import {
 const getMenuOptions = (isFile: boolean) => {
   const sharedActions = (
     <>
-      <DropdownMenuItem>
-        <Share2Icon className="mr-2 h-4 w-4" />
-        Share {isFile ? "file" : "directory"}
-      </DropdownMenuItem>
       <DropdownMenuItem>
         <Key className="mr-2 h-4 w-4" />
         Manage access

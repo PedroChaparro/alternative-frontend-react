@@ -20,7 +20,7 @@ export const Navbar = () => {
       {/* Container */}
       <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-4">
         {/* Left part */}
-        <div className="flex gap-6">
+        <div className="flex h-full gap-6">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-4">
             <img

@@ -8,7 +8,7 @@ import { AuthMiddleware } from "./components/middlewares/AuthMiddleware";
 import { AuthContextProvider } from "./context/AuthContext";
 import { UserFilesProvider } from "./context/UserFilesContext";
 import "./index.css";
-import { FilesView, LoginPage, RegisterPage } from "./screens";
+import { FilesView, LoginPage, ProfilePage, RegisterPage } from "./screens";
 import { FilesPageLayout } from "./screens/files/FilesLayout";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
@@ -53,6 +53,14 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
               }
             />
           </Route>
+          <Route
+            path="/profile"
+            element={
+              <AuthMiddleware mustBeLoggedIn={true}>
+                <ProfilePage />
+              </AuthMiddleware>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </AuthContextProvider>
