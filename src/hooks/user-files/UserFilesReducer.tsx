@@ -19,15 +19,15 @@ export type UserFilesAction =
       payload: never;
     }
   | {
-      type:
-        | UserFilesActionTypes.REMOVE_FILE
-        | UserFilesActionTypes.MARK_FILE_AS_READY;
+      type: UserFilesActionTypes.REMOVE_FILE;
       payload: {
         uuid: string;
       };
     }
   | {
-      type: UserFilesActionTypes.ADD_FILE;
+      type:
+        | UserFilesActionTypes.ADD_FILE
+        | UserFilesActionTypes.MARK_FILE_AS_READY;
       payload: File;
     }
   | {
@@ -69,7 +69,10 @@ export function userFilesReducer(state: File[], action: UserFilesAction) {
         if (file.uuid === action.payload.uuid) {
           return {
             ...file,
-            isReady: true
+            isReady: true,
+            name: action.payload.name,
+            size: action.payload.size,
+            extension: action.payload.extension
           };
         }
 
