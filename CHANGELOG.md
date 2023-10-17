@@ -1,3 +1,12 @@
+# [0.3.0](https://github.com/PedroChaparro/unofficial-frontend-react/compare/v0.2.0...v0.3.0) (2023-10-17)
+
+
+### Features
+
+* Profile page and update password ([#16](https://github.com/PedroChaparro/unofficial-frontend-react/issues/16)) ([2b8825f](https://github.com/PedroChaparro/unofficial-frontend-react/commit/2b8825ff55b8df092b72bbaaab9a9544b1e1307b))
+
+
+
 # [0.2.0](https://github.com/PedroChaparro/unofficial-frontend-react/compare/v0.1.0...v0.2.0) (2023-10-16)
 
 
