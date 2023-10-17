@@ -3,14 +3,7 @@
 import { FilesDialogsContext } from "@/context/FilesDialogsContext";
 import { File } from "@/types/entities";
 import { Dialogs } from "@/types/enums";
-import {
-  Download,
-  Key,
-  MoreVertical,
-  PenBox,
-  Trash2,
-  Truck
-} from "lucide-react";
+import { MoreVertical, PenBox } from "lucide-react";
 import { useContext } from "react";
 
 import { Button } from "../ui/button";
@@ -27,6 +20,11 @@ export const DropDown = ({ file }: { file: File }) => {
   const getMenuOptions = () => {
     const sharedActions = (
       <>
+        <DropdownMenuItem onClick={() => openDialog(Dialogs.RENAME_FILE, file)}>
+          <PenBox className="mr-2 h-4 w-4" />
+          Rename {file.isFile ? "file" : "directory"}
+        </DropdownMenuItem>
+        {/*
         <DropdownMenuItem>
           <Key className="mr-2 h-4 w-4" />
           Manage access
@@ -43,16 +41,19 @@ export const DropDown = ({ file }: { file: File }) => {
           <Trash2 className="mr-2 h-4 w-4" />
           Remove {file.isFile ? "file" : "directory"}
         </DropdownMenuItem>
+    */}
       </>
     );
 
     if (file.isFile) {
       return (
         <DropdownMenuContent className="w-48">
+          {/*
           <DropdownMenuItem>
             <Download className="mr-2 h-4 w-4" />
             Download file
           </DropdownMenuItem>
+          */}
           {sharedActions}
         </DropdownMenuContent>
       );
