@@ -67,7 +67,9 @@ export const FileCard = ({ file }: { file: File }) => {
 
       userFilesDispatcher({
         type: UserFilesActionTypes.MARK_FILE_AS_READY,
-        payload: res.file
+        payload: {
+          uuid: file.uuid
+        }
       });
 
       return true;
