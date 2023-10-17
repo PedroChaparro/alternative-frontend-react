@@ -16,11 +16,11 @@ export const Navbar = () => {
   }
 
   return (
-    <nav className="relative border-b">
+    <nav className="relative h-20 border-b">
       {/* Container */}
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4">
+      <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-4">
         {/* Left part */}
-        <div className="flex gap-6">
+        <div className="flex h-full gap-6">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-4">
             <img

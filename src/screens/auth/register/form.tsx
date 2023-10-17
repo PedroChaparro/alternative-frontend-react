@@ -18,15 +18,19 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import * as z from "zod";
 
-const registerSchema = z.object({
-  username: z
-    .string()
-    .min(3, "Username must be at least 3 characters long")
-    .max(64, "Username must be at most 64 characters long"),
-  password: z.string().min(8, "Password must be at least 8 characters long"),
-  confirmPassword: z.string()
-});
-
+const registerSchema = z
+  .object({
+    username: z
+      .string()
+      .min(3, "Username must be at least 3 characters long")
+      .max(64, "Username must be at most 64 characters long"),
+    password: z.string().min(8, "Password must be at least 8 characters long"),
+    confirmPassword: z.string()
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"]
+  });
 export function RegisterForm() {
   const { updateSession } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -38,7 +42,6 @@ export function RegisterForm() {
   });
 
   async function onSubmit(values: z.infer<typeof registerSchema>) {
-    if (!checkPasswordsMatch()) return;
     setLoading(true);
 
     const { username, password } = values;
@@ -53,17 +56,6 @@ export function RegisterForm() {
     toast.success("Account created successfully");
     logIn(values.username, response.token);
   }
-
-  const checkPasswordsMatch = (): boolean => {
-    if (form.getValues("password") !== form.getValues("confirmPassword")) {
-      form.setError("confirmPassword", {
-        message: "Passwords do not match"
-      });
-      return false;
-    }
-
-    return true;
-  };
 
   async function logIn(username: string, token: string) {
     updateSession(username, token);
