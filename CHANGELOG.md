@@ -1,3 +1,12 @@
+# [0.5.0](https://github.com/PedroChaparro/unofficial-frontend-react/compare/v0.4.0...v0.5.0) (2023-10-20)
+
+
+### Features
+
+* Home page ([#20](https://github.com/PedroChaparro/unofficial-frontend-react/issues/20)) ([36a272a](https://github.com/PedroChaparro/unofficial-frontend-react/commit/36a272ad72732e2eb8b21c8a18a9dfab7d72c837))
+
+
+
 # [0.4.0](https://github.com/PedroChaparro/unofficial-frontend-react/compare/v0.3.0...v0.4.0) (2023-10-17)
 
 
