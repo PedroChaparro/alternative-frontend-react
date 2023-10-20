@@ -12,6 +12,7 @@ interface NavigationParamsContext {
   navigationParamsState: NavigationParamsState;
   pushToHistory: (navigationParam: NavigationParams, param: string) => void;
   popFromHistory: (navigationParam: NavigationParams) => void;
+  clearHistory: (navigationParam: NavigationParams) => void;
 }
 
 const defaultValues: NavigationParamsContext = {
@@ -24,7 +25,8 @@ const defaultValues: NavigationParamsContext = {
     }
   },
   pushToHistory: () => {},
-  popFromHistory: () => {}
+  popFromHistory: () => {},
+  clearHistory: () => {}
 };
 
 export const FoldersNavigationContext = createContext(defaultValues);
@@ -74,9 +76,23 @@ export const FoldersNavigationProviders = ({
     }));
   };
 
+  const clearHistory = (navigationParam: NavigationParams) => {
+    setNavigationParamsState((prevState) => ({
+      ...prevState,
+      [navigationParam]: {
+        history: []
+      }
+    }));
+  };
+
   return (
     <FoldersNavigationContext.Provider
-      value={{ navigationParamsState, pushToHistory, popFromHistory }}
+      value={{
+        navigationParamsState,
+        pushToHistory,
+        popFromHistory,
+        clearHistory
+      }}
     >
       {children}
     </FoldersNavigationContext.Provider>

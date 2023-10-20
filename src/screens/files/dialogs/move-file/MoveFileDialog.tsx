@@ -8,12 +8,13 @@ import {
 } from "@/components/ui/dialog";
 import { AuthContext } from "@/context/AuthContext";
 import { FilesDialogsContext } from "@/context/FilesDialogsContext";
+import { FoldersNavigationContext } from "@/context/FoldersNavigationContext";
 import { UserFilesContext } from "@/context/UserFilesContext";
 import { UserFilesActionTypes } from "@/hooks/user-files/UserFilesReducer";
 import { listFilesService } from "@/services/files/list-files.service";
 import { moveFileService } from "@/services/files/move-file.service";
 import { File } from "@/types/entities";
-import { Dialogs } from "@/types/enums";
+import { Dialogs, NavigationParams } from "@/types/enums";
 import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
 import { Loader2 } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
@@ -28,6 +29,7 @@ export const MoveFileDialog = () => {
   const { userFilesDispatcher } = useContext(UserFilesContext);
 
   // Navigation state
+  const { clearHistory } = useContext(FoldersNavigationContext);
   const [params, _setParams] = useSearchParams();
   const moveTo = params.get("moveTo");
 
@@ -94,6 +96,7 @@ export const MoveFileDialog = () => {
       open={dialogsOpenState.MOVE_FILE}
       onOpenChange={(state) => {
         if (!state) {
+          clearHistory(NavigationParams.MOVE_FILE);
           return closeDialog(Dialogs.MOVE_FILE);
         }
 
