@@ -15,7 +15,11 @@ export const FilesView = () => {
   return (
     <main className="md:col-span-3" key={directory}>
       <section className="flex flex-row flex-wrap items-stretch justify-center gap-8 md:justify-start">
-        <FilesGrid areLoading={loading} files={userFiles} />
+        <FilesGrid
+          navigationParam="directory"
+          areLoading={loading}
+          files={userFiles}
+        />
       </section>
       <RenameFileDialog />
       <MoveFileDialog />
