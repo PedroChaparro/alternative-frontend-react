@@ -27,7 +27,6 @@ export const listFilesService = async (
       }
     });
     const { data } = listFilesResponse;
-    console.log(data);
 
     return {
       success: true,
@@ -36,7 +35,6 @@ export const listFilesService = async (
     };
   } catch (error) {
     let errorMsg = "There was an error while trying to list files";
-    console.log(error);
 
     if (error instanceof AxiosError) {
       errorMsg = error.response?.data.msg || errorMsg;

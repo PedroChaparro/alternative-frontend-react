@@ -31,7 +31,6 @@ export const uploadFileService = async (
       }
     );
     const { data } = uploadFileResponse;
-    console.log(data);
 
     return {
       success: true,
@@ -40,7 +39,6 @@ export const uploadFileService = async (
     };
   } catch (error) {
     let errorMsg = "There was an error while trying to upload the file";
-    console.log(error);
 
     if (error instanceof AxiosError) {
       errorMsg = error.response?.data.msg || errorMsg;
