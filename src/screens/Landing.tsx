@@ -1,5 +1,13 @@
+import { FeatureCard } from "@/components/Home/FeatureCard";
 import { buttonVariants } from "@/components/ui/button";
-import { Github } from "lucide-react";
+import {
+  DownloadCloud,
+  Github,
+  MonitorSmartphone,
+  Share2Icon,
+  UploadCloud,
+  UserPlus
+} from "lucide-react";
 import { Link } from "react-router-dom";
 
 export const Landing = () => {
@@ -25,6 +33,7 @@ export const Landing = () => {
                   size: "lg"
                 })} text-xl`}
               >
+                <UserPlus className="mr-2" />
                 Register
               </Link>
               <Link
@@ -51,6 +60,38 @@ export const Landing = () => {
           </div>
         </div>
       </header>
+      <section className="mx-auto my-4 max-w-7xl p-4">
+        <h2 className="mb-8 text-center text-3xl font-semibold text-primary">
+          Main features
+        </h2>
+        <div className="flex flex-wrap items-stretch justify-center gap-8">
+          <FeatureCard
+            Icon={UploadCloud}
+            title="Save your files"
+            description="Add and access your data in our distributed storage system. Simple and fast"
+          />
+          <FeatureCard
+            Icon={Share2Icon}
+            title="Easy File Sharing"
+            description="Share with your friends or coworkers, and simplify your file sharing experience"
+          />
+          <FeatureCard
+            Icon={DownloadCloud}
+            title="Reliable File Downloads"
+            description="Access your files from anywhere with ease and convenience with our redundant system"
+          />
+          <FeatureCard
+            Icon={MonitorSmartphone}
+            title="Seamless Cross-Platform Access"
+            description="Access your data seamlessly on both our web and mobile clients with a single CapyFile account"
+          />
+          <FeatureCard
+            Icon={Github}
+            title="Code Freedom"
+            description="Our system is open for you to explore, and customize to your needs. You can even self-host it"
+          />
+        </div>
+      </section>
     </main>
   );
 };
