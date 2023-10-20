@@ -3,7 +3,7 @@
 import { FilesDialogsContext } from "@/context/FilesDialogsContext";
 import { File } from "@/types/entities";
 import { Dialogs } from "@/types/enums";
-import { MoreVertical, PenBox } from "lucide-react";
+import { MoreVertical, PenBox, Truck } from "lucide-react";
 import { useContext } from "react";
 
 import { Button } from "../ui/button";
@@ -20,9 +20,23 @@ export const DropDown = ({ file }: { file: File }) => {
   const getMenuOptions = () => {
     const sharedActions = (
       <>
-        <DropdownMenuItem onClick={() => openDialog(Dialogs.RENAME_FILE, file)}>
+        <DropdownMenuItem
+          onClick={(e) => {
+            e.stopPropagation();
+            openDialog(Dialogs.RENAME_FILE, file);
+          }}
+        >
           <PenBox className="mr-2 h-4 w-4" />
           Rename {file.isFile ? "file" : "directory"}
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={(e) => {
+            e.stopPropagation();
+            openDialog(Dialogs.MOVE_FILE, file);
+          }}
+        >
+          <Truck className="mr-2 h-4 w-4" />
+          Move {file.isFile ? "file" : "directory"}
         </DropdownMenuItem>
         {/*
         <DropdownMenuItem>
@@ -32,10 +46,6 @@ export const DropDown = ({ file }: { file: File }) => {
         <DropdownMenuItem onClick={() => openDialog(Dialogs.RENAME_FILE, file)}>
           <PenBox className="mr-2 h-4 w-4" />
           Rename {file.isFile ? "file" : "directory"}
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <Truck className="mr-2 h-4 w-4" />
-          Move {file.isFile ? "file" : "directory"}
         </DropdownMenuItem>
         <DropdownMenuItem>
           <Trash2 className="mr-2 h-4 w-4" />

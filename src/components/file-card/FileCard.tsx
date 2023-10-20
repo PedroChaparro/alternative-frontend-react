@@ -1,5 +1,6 @@
 import { PARAMETERS } from "@/config/parameters";
 import { AuthContext } from "@/context/AuthContext";
+import { FilesDialogsContext } from "@/context/FilesDialogsContext";
 import { UserFilesContext } from "@/context/UserFilesContext";
 import { UserFilesActionTypes } from "@/hooks/user-files/UserFilesReducer";
 import { getFileByUUIDService } from "@/services/files/get-file-by-uuid.service";
@@ -37,14 +38,20 @@ const getFileIcon = (isFile: boolean) => {
 export const FileCard = ({ file }: { file: File }) => {
   const { session } = useContext(AuthContext);
   const { userFilesDispatcher } = useContext(UserFilesContext);
-  const [_params, setParams] = useSearchParams();
+  const { dialogsOpenState } = useContext(FilesDialogsContext);
+  const [params, setParams] = useSearchParams();
 
   const downloadFile = () => {
     console.log("Downloading file");
   };
 
-  const navigateToFolder = () => {
-    setParams({ directory: file.uuid });
+  const handleDirectoryClick = () => {
+    if (dialogsOpenState.MOVE_FILE) {
+      params.set("moveTo", file.uuid);
+      setParams(params);
+    } else {
+      setParams({ directory: file.uuid });
+    }
   };
 
   useEffect(() => {
@@ -111,7 +118,7 @@ export const FileCard = ({ file }: { file: File }) => {
     return (
       <button
         className="relative flex w-52 cursor-pointer flex-col items-center space-y-2 rounded-md border bg-primary-foreground/25 p-4 shadow-none transition-colors hover:bg-primary-foreground/75 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-        onClick={file.isFile ? downloadFile : navigateToFolder}
+        onClick={file.isFile ? downloadFile : handleDirectoryClick}
         aria-label={`${file.name} card`}
       >
         {<DropDown file={file} />}
