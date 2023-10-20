@@ -30,7 +30,6 @@ export const renameFileService = async (
       }
     );
     const { data } = renameFileResponse;
-    console.log(data);
 
     return {
       success: true,
@@ -38,7 +37,6 @@ export const renameFileService = async (
     };
   } catch (error) {
     let errorMsg = "There was an error while trying to rename the file";
-    console.log(error);
 
     if (error instanceof AxiosError) {
       errorMsg = error.response?.data.msg || errorMsg;

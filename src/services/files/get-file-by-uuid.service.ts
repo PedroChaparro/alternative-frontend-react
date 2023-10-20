@@ -40,7 +40,6 @@ export const getFileByUUIDService = async (
     };
   } catch (error) {
     let errorMsg = "There was an error while trying to get file";
-    console.log(error);
 
     if (error instanceof AxiosError) {
       errorMsg = error.response?.data.msg || errorMsg;
