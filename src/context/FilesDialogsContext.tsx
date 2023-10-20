@@ -18,7 +18,8 @@ interface FilesDialogsContext {
 const defaultValues: FilesDialogsContext = {
   dialogsOpenState: {
     RENAME_FILE: false,
-    MOVE_FILE: false
+    MOVE_FILE: false,
+    CREATE_DIRECTORY: false
   },
   selectedFile: null,
   updateDialogOpenState: () => {},
