@@ -9,7 +9,13 @@ import { AuthContextProvider } from "./context/AuthContext";
 import { FilesDialogsProvider } from "./context/FilesDialogsContext";
 import { UserFilesProvider } from "./context/UserFilesContext";
 import "./index.css";
-import { FilesView, LoginPage, ProfilePage, RegisterPage } from "./screens";
+import {
+  FilesView,
+  Landing,
+  LoginPage,
+  ProfilePage,
+  RegisterPage
+} from "./screens";
 import { FilesPageLayout } from "./screens/files/FilesLayout";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
@@ -19,6 +25,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Navbar />
         <Toaster expand closeButton richColors />
         <Routes>
+          <Route path="/" element={<Landing />} />
           <Route
             path="/login"
             element={
