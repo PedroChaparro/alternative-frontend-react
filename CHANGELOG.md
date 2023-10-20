@@ -1,3 +1,12 @@
+# [0.7.0](https://github.com/PedroChaparro/unofficial-frontend-react/compare/v0.6.1...v0.7.0) (2023-10-20)
+
+
+### Features
+
+* Create folder ([#24](https://github.com/PedroChaparro/unofficial-frontend-react/issues/24)) ([54dc7c1](https://github.com/PedroChaparro/unofficial-frontend-react/commit/54dc7c15c36fa3b19bad68caed62a6c45e8ccb54))
+
+
+
 ## [0.6.1](https://github.com/PedroChaparro/unofficial-frontend-react/compare/v0.6.0...v0.6.1) (2023-10-20)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * Rename files ([#18](https://github.com/PedroChaparro/unofficial-frontend-react/issues/18)) ([bbc6f61](https://github.com/PedroChaparro/unofficial-frontend-react/commit/bbc6f611b9f8dd9526d67e55bc79aabc1a9acdb2))
-
-
-
-# [0.3.0](https://github.com/PedroChaparro/unofficial-frontend-react/compare/v0.2.0...v0.3.0) (2023-10-17)
-
-
-### Features
-
-* Profile page and update password ([#16](https://github.com/PedroChaparro/unofficial-frontend-react/issues/16)) ([2b8825f](https://github.com/PedroChaparro/unofficial-frontend-react/commit/2b8825ff55b8df092b72bbaaab9a9544b1e1307b))
 
 
 
