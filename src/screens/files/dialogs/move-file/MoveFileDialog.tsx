@@ -110,11 +110,7 @@ export const MoveFileDialog = () => {
             the folders. Click on the move here button when you're done.
           </DialogDescription>
         </DialogHeader>
-        <FilesGrid
-          navigationParam="moveTo"
-          areLoading={loading}
-          files={folders}
-        />
+        <FilesGrid isInMovingMode={true} areLoading={loading} files={folders} />
         <DialogFooter>
           <Button onClick={moveFile}>
             {moving && <Loader2 className="mr-2 animate-spin" />}

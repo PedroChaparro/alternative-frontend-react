@@ -16,7 +16,7 @@ export const FilesView = () => {
     <main className="md:col-span-3" key={directory}>
       <section className="flex flex-row flex-wrap items-stretch justify-center gap-8 md:justify-start">
         <FilesGrid
-          navigationParam="directory"
+          isInMovingMode={false}
           areLoading={loading}
           files={userFiles}
         />

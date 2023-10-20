@@ -1,6 +1,8 @@
+import { FoldersNavigationContext } from "@/context/FoldersNavigationContext";
 import { File } from "@/types/entities";
+import { NavigationParams } from "@/types/enums";
 import { ArrowLeft } from "lucide-react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useContext } from "react";
 
 import { FileCard } from "../file-card/FileCard";
 import { FileCardSkeleton } from "../file-card/FileCardSkeleton";
@@ -9,22 +11,25 @@ import { EmptyContentText } from "../ui/empty-content-text";
 import { FilesContainer } from "./FilesContainer";
 
 interface FilesGridProps {
-  navigationParam: string;
+  isInMovingMode: boolean;
   areLoading: boolean;
   files: File[];
 }
 
 export const FilesGrid = ({
-  navigationParam,
+  isInMovingMode,
   areLoading,
   files
 }: FilesGridProps) => {
-  // Navigation state
-  const [params, _] = useSearchParams();
-  const canGoBack = params.get(navigationParam) !== null;
+  const { navigationParamsState, popFromHistory } = useContext(
+    FoldersNavigationContext
+  );
 
-  const navigate = useNavigate();
-  const goBack = () => navigate(-1);
+  const param = isInMovingMode
+    ? NavigationParams.MOVE_FILE
+    : NavigationParams.DIRECTORY;
+  const canGoBack = navigationParamsState[param].history.length > 0;
+  const goBack = () => popFromHistory(param);
 
   // Render
   if (areLoading) {
