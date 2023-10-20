@@ -8,16 +8,16 @@ import {
 } from "@/components/ui/dialog";
 import { AuthContext } from "@/context/AuthContext";
 import { FilesDialogsContext } from "@/context/FilesDialogsContext";
+import { FoldersNavigationContext } from "@/context/FoldersNavigationContext";
 import { UserFilesContext } from "@/context/UserFilesContext";
 import { UserFilesActionTypes } from "@/hooks/user-files/UserFilesReducer";
 import { listFilesService } from "@/services/files/list-files.service";
 import { moveFileService } from "@/services/files/move-file.service";
 import { File } from "@/types/entities";
-import { Dialogs } from "@/types/enums";
+import { Dialogs, NavigationParams } from "@/types/enums";
 import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
 import { Loader2 } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
 import { toast } from "sonner";
 
 export const MoveFileDialog = () => {
@@ -28,8 +28,8 @@ export const MoveFileDialog = () => {
   const { userFilesDispatcher } = useContext(UserFilesContext);
 
   // Navigation state
-  const [params, _setParams] = useSearchParams();
-  const moveTo = params.get("moveTo");
+  const { clearHistory, getParam } = useContext(FoldersNavigationContext);
+  const moveTo = getParam(NavigationParams.MOVE_FILE);
 
   // Dialog states
   const { selectedFile, dialogsOpenState, updateDialogOpenState, closeDialog } =
@@ -94,6 +94,7 @@ export const MoveFileDialog = () => {
       open={dialogsOpenState.MOVE_FILE}
       onOpenChange={(state) => {
         if (!state) {
+          clearHistory(NavigationParams.MOVE_FILE);
           return closeDialog(Dialogs.MOVE_FILE);
         }
 
@@ -110,11 +111,7 @@ export const MoveFileDialog = () => {
             the folders. Click on the move here button when you're done.
           </DialogDescription>
         </DialogHeader>
-        <FilesGrid
-          navigationParam="moveTo"
-          areLoading={loading}
-          files={folders}
-        />
+        <FilesGrid isInMovingMode={true} areLoading={loading} files={folders} />
         <DialogFooter>
           <Button onClick={moveFile}>
             {moving && <Loader2 className="mr-2 animate-spin" />}

@@ -1,13 +1,14 @@
 import { PARAMETERS } from "@/config/parameters";
 import { AuthContext } from "@/context/AuthContext";
 import { FilesDialogsContext } from "@/context/FilesDialogsContext";
+import { FoldersNavigationContext } from "@/context/FoldersNavigationContext";
 import { UserFilesContext } from "@/context/UserFilesContext";
 import { UserFilesActionTypes } from "@/hooks/user-files/UserFilesReducer";
 import { getFileByUUIDService } from "@/services/files/get-file-by-uuid.service";
 import { File } from "@/types/entities";
+import { NavigationParams } from "@/types/enums";
 import { FileText, FolderOpen } from "lucide-react";
 import { useContext, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
 import { toast } from "sonner";
 
 import { DropDown } from "./Dropdown";
@@ -37,9 +38,11 @@ const getFileIcon = (isFile: boolean) => {
 
 export const FileCard = ({ file }: { file: File }) => {
   const { session } = useContext(AuthContext);
+
+  const { pushToHistory } = useContext(FoldersNavigationContext);
+
   const { userFilesDispatcher } = useContext(UserFilesContext);
   const { dialogsOpenState } = useContext(FilesDialogsContext);
-  const [params, setParams] = useSearchParams();
 
   const downloadFile = () => {
     console.log("Downloading file");
@@ -47,10 +50,9 @@ export const FileCard = ({ file }: { file: File }) => {
 
   const handleDirectoryClick = () => {
     if (dialogsOpenState.MOVE_FILE) {
-      params.set("moveTo", file.uuid);
-      setParams(params);
+      pushToHistory(NavigationParams.MOVE_FILE, file.uuid);
     } else {
-      setParams({ directory: file.uuid });
+      pushToHistory(NavigationParams.DIRECTORY, file.uuid);
     }
   };
 

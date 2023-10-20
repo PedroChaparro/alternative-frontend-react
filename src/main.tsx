@@ -7,6 +7,7 @@ import { Navbar } from "./components/Navbar/Navbar";
 import { AuthMiddleware } from "./components/middlewares/AuthMiddleware";
 import { AuthContextProvider } from "./context/AuthContext";
 import { FilesDialogsProvider } from "./context/FilesDialogsContext";
+import { FoldersNavigationProviders } from "./context/FoldersNavigationContext";
 import { UserFilesProvider } from "./context/UserFilesContext";
 import "./index.css";
 import {
@@ -46,11 +47,13 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             path="/files"
             element={
               <AuthMiddleware mustBeLoggedIn>
-                <FilesDialogsProvider>
-                  <UserFilesProvider>
-                    <FilesPageLayout />
-                  </UserFilesProvider>
-                </FilesDialogsProvider>
+                <FoldersNavigationProviders>
+                  <FilesDialogsProvider>
+                    <UserFilesProvider>
+                      <FilesPageLayout />
+                    </UserFilesProvider>
+                  </FilesDialogsProvider>
+                </FoldersNavigationProviders>
               </AuthMiddleware>
             }
           >

@@ -1,10 +1,14 @@
 import { Button } from "@/components/ui/button";
+import { FoldersNavigationContext } from "@/context/FoldersNavigationContext";
+import { NavigationParams } from "@/types/enums";
 import { PlusCircle } from "lucide-react";
+import { useContext } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 
 import { UploadFileDialog } from "./dialogs";
 
 export const FilesPageLayout = () => {
+  const { clearHistory } = useContext(FoldersNavigationContext);
   const navigate = useNavigate();
 
   return (
@@ -18,7 +22,10 @@ export const FilesPageLayout = () => {
         <Button
           variant={"outline"}
           className="w-full max-w-xs"
-          onClick={() => navigate("/files")}
+          onClick={() => {
+            clearHistory(NavigationParams.DIRECTORY);
+            navigate("/files");
+          }}
         >
           My files
         </Button>
