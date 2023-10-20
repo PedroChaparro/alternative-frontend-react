@@ -1,11 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { FoldersNavigationContext } from "@/context/index";
 import { NavigationParams } from "@/types/enums";
-import { PlusCircle } from "lucide-react";
 import { useContext } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 
-import { UploadFileDialog } from "./dialogs";
+import { CreateDirectoryDialog, UploadFileDialog } from "./dialogs";
 
 export const FilesPageLayout = () => {
   const { clearHistory } = useContext(FoldersNavigationContext);
@@ -15,10 +14,7 @@ export const FilesPageLayout = () => {
     <div className="mx-auto grid min-h-[calc(100vh-5rem)] max-w-7xl auto-rows-min gap-4 p-4 md:auto-rows-auto md:grid-cols-4">
       <aside className="flex flex-wrap justify-center gap-4 border-b pb-4 pr-4 md:flex-col md:justify-start md:border-b-0 md:border-r md:pb-0">
         <UploadFileDialog />
-        <Button variant={"default"} className="w-full max-w-xs">
-          <PlusCircle strokeWidth={1.5} className="mr-2 h-5 w-5" />
-          Create folder
-        </Button>
+        <CreateDirectoryDialog />
         <Button
           variant={"outline"}
           className="w-full max-w-xs"
