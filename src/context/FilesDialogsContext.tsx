@@ -1,6 +1,7 @@
 import { File } from "@/types/entities";
 import { Dialogs } from "@/types/enums";
 import { ReactNode, createContext, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 type DialogState = {
   [key in Dialogs]: boolean;
@@ -16,7 +17,8 @@ interface FilesDialogsContext {
 
 const defaultValues: FilesDialogsContext = {
   dialogsOpenState: {
-    RENAME_FILE: false
+    RENAME_FILE: false,
+    MOVE_FILE: false
   },
   selectedFile: null,
   updateDialogOpenState: () => {},
@@ -28,6 +30,8 @@ export const FilesDialogsContext =
   createContext<FilesDialogsContext>(defaultValues);
 
 export const FilesDialogsProvider = ({ children }: { children: ReactNode }) => {
+  const [params, setParams] = useSearchParams();
+
   const [dialogsOpenState, setDialogsOpenState] = useState<DialogState>(
     defaultValues.dialogsOpenState
   );
@@ -47,6 +51,11 @@ export const FilesDialogsProvider = ({ children }: { children: ReactNode }) => {
       ...dialogsOpenState,
       [dialog]: false
     });
+
+    if (dialog === Dialogs.MOVE_FILE) {
+      params.delete("moveTo");
+      setParams(params);
+    }
   };
 
   const updateDialogOpenState = (dialog: Dialogs, state: boolean) => {
