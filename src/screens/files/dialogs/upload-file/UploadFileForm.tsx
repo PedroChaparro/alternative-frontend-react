@@ -1,12 +1,15 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { AuthContext } from "@/context/AuthContext";
-import { UserFilesContext } from "@/context/UserFilesContext";
+import {
+  AuthContext,
+  FoldersNavigationContext,
+  UserFilesContext
+} from "@/context/index";
 import { UserFilesActionTypes } from "@/hooks/user-files/UserFilesReducer";
 import { uploadFileService } from "@/services/files/upload-file.service";
 import { File } from "@/types/entities";
+import { NavigationParams } from "@/types/enums";
 import { useContext, useState } from "react";
-import { useSearchParams } from "react-router-dom";
 import { toast } from "sonner";
 
 interface UploadFileFormProps {
@@ -20,8 +23,8 @@ export const UploadFileForm = ({
   const { session } = useContext(AuthContext);
 
   // Params id
-  const [params, _setParams] = useSearchParams();
-  const directory = params.get("directory");
+  const { getParam } = useContext(FoldersNavigationContext);
+  const directory = getParam(NavigationParams.DIRECTORY);
 
   // Files state
   const { userFilesDispatcher } = useContext(UserFilesContext);
@@ -56,7 +59,7 @@ export const UploadFileForm = ({
     const promises = Array.from(files!).map((file) => {
       return uploadFileService({
         file,
-        token: session?.token || "",
+        token: session?.token as string,
         directory
       });
     });

@@ -1,5 +1,5 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { AuthContext } from "@/context/AuthContext";
+import { AuthContext } from "@/context/index";
 import { useContext } from "react";
 
 import { UpdatePasswordForm } from "./UpdatePasswordForm";

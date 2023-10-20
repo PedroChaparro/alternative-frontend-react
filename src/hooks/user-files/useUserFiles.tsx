@@ -1,7 +1,8 @@
-import { AuthContext } from "@/context/AuthContext";
+import { AuthContext, FoldersNavigationContext } from "@/context/index";
 import { listFilesService } from "@/services/files/list-files.service";
+import { NavigationParams } from "@/types/enums";
 import { useContext, useEffect, useReducer, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 import { UserFilesActionTypes, userFilesReducer } from "./UserFilesReducer";
@@ -9,8 +10,8 @@ import { UserFilesActionTypes, userFilesReducer } from "./UserFilesReducer";
 export const useUserFiles = () => {
   // Router state
   const navigate = useNavigate();
-  const [params, _setParams] = useSearchParams();
-  const directory = params.get("directory");
+  const { getParam } = useContext(FoldersNavigationContext);
+  const directory = getParam(NavigationParams.DIRECTORY);
 
   // Session state
   const { session } = useContext(AuthContext);
@@ -24,7 +25,7 @@ export const useUserFiles = () => {
     const getFiles = async () => {
       setLoading(true);
       const { success, ...response } = await listFilesService({
-        token: session?.token || "",
+        token: session?.token as string,
         directory
       });
       if (!success) {

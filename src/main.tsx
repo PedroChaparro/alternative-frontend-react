@@ -1,3 +1,9 @@
+import {
+  AuthContextProvider,
+  FilesDialogsProvider,
+  FoldersNavigationProviders,
+  UserFilesProvider
+} from "@/context/index";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -5,10 +11,14 @@ import { Toaster } from "sonner";
 
 import { Navbar } from "./components/Navbar/Navbar";
 import { AuthMiddleware } from "./components/middlewares/AuthMiddleware";
-import { AuthContextProvider } from "./context/AuthContext";
-import { UserFilesProvider } from "./context/UserFilesContext";
 import "./index.css";
-import { FilesView, LoginPage, ProfilePage, RegisterPage } from "./screens";
+import {
+  FilesView,
+  Landing,
+  LoginPage,
+  ProfilePage,
+  RegisterPage
+} from "./screens";
 import { FilesPageLayout } from "./screens/files/FilesLayout";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
@@ -18,6 +28,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Navbar />
         <Toaster expand closeButton richColors />
         <Routes>
+          <Route path="/" element={<Landing />} />
           <Route
             path="/login"
             element={
@@ -38,9 +49,13 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             path="/files"
             element={
               <AuthMiddleware mustBeLoggedIn>
-                <UserFilesProvider>
-                  <FilesPageLayout />
-                </UserFilesProvider>
+                <FoldersNavigationProviders>
+                  <FilesDialogsProvider>
+                    <UserFilesProvider>
+                      <FilesPageLayout />
+                    </UserFilesProvider>
+                  </FilesDialogsProvider>
+                </FoldersNavigationProviders>
               </AuthMiddleware>
             }
           >
