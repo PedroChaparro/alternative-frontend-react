@@ -1,3 +1,12 @@
+## [0.6.1](https://github.com/PedroChaparro/unofficial-frontend-react/compare/v0.6.0...v0.6.1) (2023-10-20)
+
+
+### Bug Fixes
+
+* Go back button in folders navigation ([#23](https://github.com/PedroChaparro/unofficial-frontend-react/issues/23)) ([07edb44](https://github.com/PedroChaparro/unofficial-frontend-react/commit/07edb442b2524bd739bf7f0d6ea13f536b1a62b9))
+
+
+
 # [0.6.0](https://github.com/PedroChaparro/unofficial-frontend-react/compare/v0.5.0...v0.6.0) (2023-10-20)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * Profile page and update password ([#16](https://github.com/PedroChaparro/unofficial-frontend-react/issues/16)) ([2b8825f](https://github.com/PedroChaparro/unofficial-frontend-react/commit/2b8825ff55b8df092b72bbaaab9a9544b1e1307b))
-
-
-
-# [0.2.0](https://github.com/PedroChaparro/unofficial-frontend-react/compare/v0.1.0...v0.2.0) (2023-10-16)
-
-
-### Features
-
-* Dialog to upload files ([#15](https://github.com/PedroChaparro/unofficial-frontend-react/issues/15)) ([1441752](https://github.com/PedroChaparro/unofficial-frontend-react/commit/14417526a6eeb4fc3caaab4f6b37a53e65b35052))
 
 
 
