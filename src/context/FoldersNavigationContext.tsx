@@ -10,6 +10,7 @@ type NavigationParamsState = {
 
 interface NavigationParamsContext {
   navigationParamsState: NavigationParamsState;
+  getParam: (navigationParam: NavigationParams) => string | null;
   pushToHistory: (navigationParam: NavigationParams, param: string) => void;
   popFromHistory: (navigationParam: NavigationParams) => void;
   clearHistory: (navigationParam: NavigationParams) => void;
@@ -24,6 +25,7 @@ const defaultValues: NavigationParamsContext = {
       history: []
     }
   },
+  getParam: () => null,
   pushToHistory: () => {},
   popFromHistory: () => {},
   clearHistory: () => {}
@@ -39,6 +41,9 @@ export const FoldersNavigationProviders = ({
   const [params, setParams] = useSearchParams();
   const [navigationParamsState, setNavigationParamsState] =
     useState<NavigationParamsState>(defaultValues.navigationParamsState);
+
+  const getParam = (navigationParam: NavigationParams) =>
+    params.get(navigationParam);
 
   const pushToHistory = (navigationParam: NavigationParams, param: string) => {
     // Save the current value
@@ -68,12 +73,7 @@ export const FoldersNavigationProviders = ({
     }
 
     setParams(params);
-    setNavigationParamsState((prevState) => ({
-      ...prevState,
-      [navigationParam]: {
-        history: prevState[navigationParam].history.slice(0, -1)
-      }
-    }));
+    setNavigationParamsState(() => navigationParamsState);
   };
 
   const clearHistory = (navigationParam: NavigationParams) => {
@@ -89,6 +89,7 @@ export const FoldersNavigationProviders = ({
     <FoldersNavigationContext.Provider
       value={{
         navigationParamsState,
+        getParam,
         pushToHistory,
         popFromHistory,
         clearHistory
