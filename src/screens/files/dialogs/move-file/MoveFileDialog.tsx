@@ -18,7 +18,6 @@ import { Dialogs, NavigationParams } from "@/types/enums";
 import { DialogDescription, DialogTitle } from "@radix-ui/react-dialog";
 import { Loader2 } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
 import { toast } from "sonner";
 
 export const MoveFileDialog = () => {
@@ -29,9 +28,8 @@ export const MoveFileDialog = () => {
   const { userFilesDispatcher } = useContext(UserFilesContext);
 
   // Navigation state
-  const { clearHistory } = useContext(FoldersNavigationContext);
-  const [params, _setParams] = useSearchParams();
-  const moveTo = params.get("moveTo");
+  const { clearHistory, getParam } = useContext(FoldersNavigationContext);
+  const moveTo = getParam(NavigationParams.MOVE_FILE);
 
   // Dialog states
   const { selectedFile, dialogsOpenState, updateDialogOpenState, closeDialog } =
