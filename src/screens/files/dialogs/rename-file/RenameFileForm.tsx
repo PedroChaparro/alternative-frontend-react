@@ -9,9 +9,11 @@ import {
   FormMessage
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { AuthContext } from "@/context/AuthContext";
-import { FilesDialogsContext } from "@/context/FilesDialogsContext";
-import { UserFilesContext } from "@/context/UserFilesContext";
+import {
+  AuthContext,
+  FilesDialogsContext,
+  UserFilesContext
+} from "@/context/index";
 import { UserFilesActionTypes } from "@/hooks/user-files/UserFilesReducer";
 import { renameFileService } from "@/services/files/rename-file.service";
 import { Dialogs } from "@/types/enums";

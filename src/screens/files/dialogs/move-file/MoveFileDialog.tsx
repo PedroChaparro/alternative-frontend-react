@@ -6,10 +6,12 @@ import {
   DialogFooter,
   DialogHeader
 } from "@/components/ui/dialog";
-import { AuthContext } from "@/context/AuthContext";
-import { FilesDialogsContext } from "@/context/FilesDialogsContext";
-import { FoldersNavigationContext } from "@/context/FoldersNavigationContext";
-import { UserFilesContext } from "@/context/UserFilesContext";
+import {
+  AuthContext,
+  FilesDialogsContext,
+  FoldersNavigationContext,
+  UserFilesContext
+} from "@/context/index";
 import { UserFilesActionTypes } from "@/hooks/user-files/UserFilesReducer";
 import { listFilesService } from "@/services/files/list-files.service";
 import { moveFileService } from "@/services/files/move-file.service";

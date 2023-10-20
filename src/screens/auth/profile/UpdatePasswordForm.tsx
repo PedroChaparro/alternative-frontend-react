@@ -8,7 +8,7 @@ import {
   FormMessage
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { AuthContext } from "@/context/AuthContext";
+import { AuthContext } from "@/context/index";
 import { updatePasswordService } from "@/services/account/update-password.service";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";

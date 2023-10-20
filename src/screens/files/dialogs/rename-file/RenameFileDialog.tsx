@@ -5,7 +5,7 @@ import {
   DialogHeader,
   DialogTitle
 } from "@/components/ui/dialog";
-import { FilesDialogsContext } from "@/context/FilesDialogsContext";
+import { FilesDialogsContext } from "@/context/index";
 import { Dialogs } from "@/types/enums";
 import { useContext } from "react";
 

@@ -1,5 +1,5 @@
 import { FilesGrid } from "@/components/files-grid/FilesGrid";
-import { UserFilesContext } from "@/context/UserFilesContext";
+import { UserFilesContext } from "@/context/index";
 import { useContext } from "react";
 
 import { MoveFileDialog } from "./dialogs/move-file/MoveFileDialog";

@@ -1,8 +1,10 @@
 import { PARAMETERS } from "@/config/parameters";
-import { AuthContext } from "@/context/AuthContext";
-import { FilesDialogsContext } from "@/context/FilesDialogsContext";
-import { FoldersNavigationContext } from "@/context/FoldersNavigationContext";
-import { UserFilesContext } from "@/context/UserFilesContext";
+import {
+  AuthContext,
+  FilesDialogsContext,
+  FoldersNavigationContext,
+  UserFilesContext
+} from "@/context/index";
 import { UserFilesActionTypes } from "@/hooks/user-files/UserFilesReducer";
 import { getFileByUUIDService } from "@/services/files/get-file-by-uuid.service";
 import { File } from "@/types/entities";

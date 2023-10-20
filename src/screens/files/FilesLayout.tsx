@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { FoldersNavigationContext } from "@/context/FoldersNavigationContext";
+import { FoldersNavigationContext } from "@/context/index";
 import { NavigationParams } from "@/types/enums";
 import { PlusCircle } from "lucide-react";
 import { useContext } from "react";

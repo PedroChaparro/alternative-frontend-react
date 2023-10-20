@@ -1,5 +1,4 @@
-import { AuthContext } from "@/context/AuthContext";
-import { FoldersNavigationContext } from "@/context/FoldersNavigationContext";
+import { AuthContext, FoldersNavigationContext } from "@/context/index";
 import { listFilesService } from "@/services/files/list-files.service";
 import { NavigationParams } from "@/types/enums";
 import { useContext, useEffect, useReducer, useState } from "react";

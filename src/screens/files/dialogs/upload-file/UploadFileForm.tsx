@@ -1,8 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { AuthContext } from "@/context/AuthContext";
-import { FoldersNavigationContext } from "@/context/FoldersNavigationContext";
-import { UserFilesContext } from "@/context/UserFilesContext";
+import {
+  AuthContext,
+  FoldersNavigationContext,
+  UserFilesContext
+} from "@/context/index";
 import { UserFilesActionTypes } from "@/hooks/user-files/UserFilesReducer";
 import { uploadFileService } from "@/services/files/upload-file.service";
 import { File } from "@/types/entities";
