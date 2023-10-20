@@ -1,6 +1,6 @@
 "use client";
 
-import { FilesDialogsContext } from "@/context/FilesDialogsContext";
+import { FilesDialogsContext } from "@/context/index";
 import { File } from "@/types/entities";
 import { Dialogs } from "@/types/enums";
 import { MoreVertical, PenBox, Truck } from "lucide-react";

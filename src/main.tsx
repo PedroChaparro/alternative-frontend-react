@@ -1,3 +1,9 @@
+import {
+  AuthContextProvider,
+  FilesDialogsProvider,
+  FoldersNavigationProviders,
+  UserFilesProvider
+} from "@/context/index";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -5,10 +11,6 @@ import { Toaster } from "sonner";
 
 import { Navbar } from "./components/Navbar/Navbar";
 import { AuthMiddleware } from "./components/middlewares/AuthMiddleware";
-import { AuthContextProvider } from "./context/AuthContext";
-import { FilesDialogsProvider } from "./context/FilesDialogsContext";
-import { FoldersNavigationProviders } from "./context/FoldersNavigationContext";
-import { UserFilesProvider } from "./context/UserFilesContext";
 import "./index.css";
 import {
   FilesView,

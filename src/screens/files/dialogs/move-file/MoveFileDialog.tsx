@@ -6,10 +6,12 @@ import {
   DialogFooter,
   DialogHeader
 } from "@/components/ui/dialog";
-import { AuthContext } from "@/context/AuthContext";
-import { FilesDialogsContext } from "@/context/FilesDialogsContext";
-import { FoldersNavigationContext } from "@/context/FoldersNavigationContext";
-import { UserFilesContext } from "@/context/UserFilesContext";
+import {
+  AuthContext,
+  FilesDialogsContext,
+  FoldersNavigationContext,
+  UserFilesContext
+} from "@/context/index";
 import { UserFilesActionTypes } from "@/hooks/user-files/UserFilesReducer";
 import { listFilesService } from "@/services/files/list-files.service";
 import { moveFileService } from "@/services/files/move-file.service";
@@ -45,7 +47,7 @@ export const MoveFileDialog = () => {
 
       const { success, ...res } = await listFilesService({
         directory: moveTo,
-        token: session?.token || ""
+        token: session?.token as string
       });
 
       if (!success) {
@@ -69,7 +71,7 @@ export const MoveFileDialog = () => {
     const { success, ...res } = await moveFileService({
       directoryUUID: moveTo,
       fileUUID: selectedFile.uuid,
-      token: session?.token || ""
+      token: session?.token as string
     });
 
     if (!success) {

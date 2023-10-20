@@ -12,11 +12,12 @@ import { Input } from "@/components/ui/input";
 import {
   AuthContext,
   FilesDialogsContext,
+  FoldersNavigationContext,
   UserFilesContext
 } from "@/context/index";
 import { UserFilesActionTypes } from "@/hooks/user-files/UserFilesReducer";
-import { renameFileService } from "@/services/files/rename-file.service";
-import { Dialogs } from "@/types/enums";
+import { createFoldersService } from "@/services/files/create-folders.service";
+import { Dialogs, NavigationParams } from "@/types/enums";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { useContext, useState } from "react";
@@ -24,55 +25,61 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
 
-const renameFileSchema = z.object({
+const createDirectorySchema = z.object({
   name: z
     .string()
-    .min(1, "File name must be at least 1 character long")
-    .max(255, "File name must be at most 255 characters long")
+    .min(1, "Directory name must be at least 1 character long")
+    .max(255, "Directory name must be at most 255 characters long")
 });
 
-export const RenameFileForm = () => {
-  const { selectedFile, closeDialog } = useContext(FilesDialogsContext);
+export const CreateDirectoryForm = () => {
+  const { getParam } = useContext(FoldersNavigationContext);
+  const parent = getParam(NavigationParams.DIRECTORY);
+
+  const { closeDialog } = useContext(FilesDialogsContext);
   const { session } = useContext(AuthContext);
   const { userFilesDispatcher } = useContext(UserFilesContext);
 
   const [loading, setLoading] = useState(false);
-  const form = useForm<z.infer<typeof renameFileSchema>>({
-    resolver: zodResolver(renameFileSchema),
+  const form = useForm<z.infer<typeof createDirectorySchema>>({
+    resolver: zodResolver(createDirectorySchema),
     defaultValues: {
-      name: selectedFile?.name
+      name: ""
     }
   });
 
-  if (!selectedFile) return;
+  const onSubmit = async (data: z.infer<typeof createDirectorySchema>) => {
+    if (loading) return;
 
-  const onSubmit = async (data: z.infer<typeof renameFileSchema>) => {
-    await renameFile(data.name);
+    setLoading(true);
+    await createDirectory(data.name);
+    setLoading(false);
   };
 
-  const renameFile = async (newName: string) => {
-    setLoading(true);
-    const { success, msg } = await renameFileService({
-      fileUUID: selectedFile.uuid,
-      newName: newName,
-      token: session?.token ?? ""
+  const createDirectory = async (name: string) => {
+    const { success, ...res } = await createFoldersService({
+      name,
+      directory: parent,
+      token: session?.token as string
     });
-    setLoading(false);
 
     if (!success) {
-      toast.error(msg);
+      toast.error(res.msg);
       return;
     }
 
     userFilesDispatcher({
-      type: UserFilesActionTypes.RENAME_FILE,
+      type: UserFilesActionTypes.ADD_FILE,
       payload: {
-        uuid: selectedFile.uuid,
-        name: newName
+        uuid: res.directoryUUID,
+        isFile: false,
+        isReady: true,
+        name,
+        size: 0
       }
     });
-    toast.success(msg);
-    closeDialog(Dialogs.RENAME_FILE);
+    toast.success("The folder has been created successfully");
+    closeDialog(Dialogs.CREATE_DIRECTORY);
   };
 
   return (
@@ -83,9 +90,9 @@ export const RenameFileForm = () => {
           name="name"
           render={({ field }) => (
             <FormItem className="mb-4">
-              <FormLabel>New name</FormLabel>
+              <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input placeholder="Enter a new name for the file" {...field} />
+                <Input placeholder="Enter a name for the folder" {...field} />
               </FormControl>
               {form.formState.errors.name && (
                 <FormMessage className="col-span-3 col-start-2">
@@ -98,7 +105,7 @@ export const RenameFileForm = () => {
         <DialogFooter>
           <Button type="submit">
             {loading && <Loader2 className="mr-2 animate-spin" />}
-            Rename
+            Create
           </Button>
         </DialogFooter>
       </form>

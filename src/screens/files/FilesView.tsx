@@ -1,11 +1,12 @@
 import { FilesGrid } from "@/components/files-grid/FilesGrid";
-import { UserFilesContext } from "@/context/UserFilesContext";
+import { FilesDialogsContext, UserFilesContext } from "@/context/index";
 import { useContext } from "react";
 
 import { MoveFileDialog } from "./dialogs/move-file/MoveFileDialog";
 import { RenameFileDialog } from "./dialogs/rename-file/RenameFileDialog";
 
 export const FilesView = () => {
+  const { dialogsOpenState } = useContext(FilesDialogsContext);
   const { areFilesLoading: loading, userFiles } = useContext(UserFilesContext);
 
   return (
@@ -18,7 +19,7 @@ export const FilesView = () => {
         />
       </section>
       <RenameFileDialog />
-      <MoveFileDialog />
+      {dialogsOpenState.MOVE_FILE && <MoveFileDialog />}
     </main>
   );
 };

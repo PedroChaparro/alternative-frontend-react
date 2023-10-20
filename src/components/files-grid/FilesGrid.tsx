@@ -1,4 +1,4 @@
-import { FoldersNavigationContext } from "@/context/FoldersNavigationContext";
+import { FoldersNavigationContext } from "@/context/index";
 import { File } from "@/types/entities";
 import { NavigationParams } from "@/types/enums";
 import { ArrowLeft } from "lucide-react";

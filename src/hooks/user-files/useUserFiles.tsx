@@ -1,5 +1,4 @@
-import { AuthContext } from "@/context/AuthContext";
-import { FoldersNavigationContext } from "@/context/FoldersNavigationContext";
+import { AuthContext, FoldersNavigationContext } from "@/context/index";
 import { listFilesService } from "@/services/files/list-files.service";
 import { NavigationParams } from "@/types/enums";
 import { useContext, useEffect, useReducer, useState } from "react";
@@ -26,7 +25,7 @@ export const useUserFiles = () => {
     const getFiles = async () => {
       setLoading(true);
       const { success, ...response } = await listFilesService({
-        token: session?.token || "",
+        token: session?.token as string,
         directory
       });
       if (!success) {
