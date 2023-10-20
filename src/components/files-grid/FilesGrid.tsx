@@ -36,7 +36,17 @@ export const FilesGrid = ({
   }
 
   if (!areLoading && files.length === 0) {
-    return <EmptyContentText text="No files found here..." />;
+    return (
+      <div className="flex flex-col space-y-4">
+        {canGoBack && (
+          <Button className="w-max" onClick={goBack}>
+            <ArrowLeft className="mr-2" />
+            Go back
+          </Button>
+        )}
+        <EmptyContentText text="No files found here..." />
+      </div>
+    );
   }
 
   return (
