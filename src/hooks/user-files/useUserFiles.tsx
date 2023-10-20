@@ -25,7 +25,7 @@ export const useUserFiles = () => {
     const getFiles = async () => {
       setLoading(true);
       const { success, ...response } = await listFilesService({
-        token: session?.token || "",
+        token: session?.token as string,
         directory
       });
       if (!success) {

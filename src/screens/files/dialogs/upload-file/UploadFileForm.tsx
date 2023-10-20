@@ -59,7 +59,7 @@ export const UploadFileForm = ({
     const promises = Array.from(files!).map((file) => {
       return uploadFileService({
         file,
-        token: session?.token || "",
+        token: session?.token as string,
         directory
       });
     });

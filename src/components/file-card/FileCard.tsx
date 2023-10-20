@@ -68,7 +68,7 @@ export const FileCard = ({ file }: { file: File }) => {
     const checkIfFileIsReady = async (): Promise<boolean> => {
       const { success, ...res } = await getFileByUUIDService({
         fileUUID: file.uuid,
-        token: session?.token || ""
+        token: session?.token as string
       });
 
       if (!success || !res.file) {

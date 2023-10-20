@@ -49,7 +49,7 @@ export const UpdatePasswordForm = () => {
     const { success, msg } = await updatePasswordService({
       oldPassword: values.oldPassword,
       newPassword: values.newPassword,
-      token: session?.token || ""
+      token: session?.token as string
     });
     if (!success) {
       setLoading(false);
