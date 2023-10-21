@@ -20,7 +20,11 @@ const shareFileSchema = z.object({
     .max(255, "Username must be at most 255 characters long")
 });
 
-export const ShareFileForm = () => {
+interface ShareFileFormProps {
+  shareCallback: (username: string) => void;
+}
+
+export const ShareFileForm = ({ shareCallback }: ShareFileFormProps) => {
   const [sharing, setSharing] = useState(false);
   const form = useForm<z.infer<typeof shareFileSchema>>({
     resolver: zodResolver(shareFileSchema)
@@ -33,8 +37,12 @@ export const ShareFileForm = () => {
   };
 
   const shareFile = async (username: string) => {
+    // TODO: Make the request to share the file
     console.log(`Sharing file with ${username}`);
     await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    // Add the user to the UI
+    shareCallback(username);
   };
 
   return (
