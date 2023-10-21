@@ -1,3 +1,12 @@
+# [0.9.0](https://github.com/PedroChaparro/alternative-frontend-react/compare/v0.8.0...v0.9.0) (2023-10-21)
+
+
+### Features
+
+* Download file ([#28](https://github.com/PedroChaparro/alternative-frontend-react/issues/28)) ([b55be6c](https://github.com/PedroChaparro/alternative-frontend-react/commit/b55be6cec070a0e50d94c5062eab408d9d9c0e31))
+
+
+
 # [0.8.0](https://github.com/PedroChaparro/alternative-frontend-react/compare/v0.7.0...v0.8.0) (2023-10-21)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * Move files ([#21](https://github.com/PedroChaparro/alternative-frontend-react/issues/21)) ([3a470e9](https://github.com/PedroChaparro/alternative-frontend-react/commit/3a470e97df16f038658bb2e13019c2adda4a5e0a))
-
-
-
-# [0.5.0](https://github.com/PedroChaparro/alternative-frontend-react/compare/v0.4.0...v0.5.0) (2023-10-20)
-
-
-### Features
-
-* Home page ([#20](https://github.com/PedroChaparro/alternative-frontend-react/issues/20)) ([36a272a](https://github.com/PedroChaparro/alternative-frontend-react/commit/36a272ad72732e2eb8b21c8a18a9dfab7d72c837))
 
 
 
