@@ -40,7 +40,7 @@ test.describe.serial("Users can move a file", () => {
     const filesInput = page.getByLabel("Choose files to upload", {
       exact: true
     });
-    await filesInput.setInputFiles(path.join(__dirname, "data/yellow.jpg"));
+    await filesInput.setInputFiles(path.join(__dirname, "data/in/yellow.jpg"));
     await page.getByRole("button", { name: "Upload", exact: true }).click();
 
     // Assert file is shown

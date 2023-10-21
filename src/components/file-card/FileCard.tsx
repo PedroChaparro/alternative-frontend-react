@@ -6,6 +6,8 @@ import {
   UserFilesContext
 } from "@/context/index";
 import { UserFilesActionTypes } from "@/hooks/user-files/UserFilesReducer";
+import { downloadBlob } from "@/lib/utils";
+import { downloadFileService } from "@/services/files/download-file.service";
 import { getFileByUUIDService } from "@/services/files/get-file-by-uuid.service";
 import { File } from "@/types/entities";
 import { NavigationParams } from "@/types/enums";
@@ -46,8 +48,19 @@ export const FileCard = ({ file }: { file: File }) => {
   const { userFilesDispatcher } = useContext(UserFilesContext);
   const { dialogsOpenState } = useContext(FilesDialogsContext);
 
-  const downloadFile = () => {
-    console.log("Downloading file");
+  const downloadFile = async () => {
+    const request = {
+      token: session?.token as string,
+      fileUUID: file.uuid
+    };
+
+    try {
+      const blob = await downloadFileService(request);
+      const fileName = file.name;
+      downloadBlob({ file: blob, fileName });
+    } catch {
+      toast.error("An error occurred while downloading the file");
+    }
   };
 
   const handleDirectoryClick = () => {
@@ -120,10 +133,11 @@ export const FileCard = ({ file }: { file: File }) => {
     }
 
     return (
-      <button
-        className="relative flex w-52 cursor-pointer flex-col items-center space-y-2 rounded-md border bg-primary-foreground/25 p-4 shadow-none transition-colors hover:bg-primary-foreground/75 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-        onClick={file.isFile ? downloadFile : handleDirectoryClick}
+      <article
+        role="button"
         aria-label={`${file.name} card`}
+        onClick={file.isFile ? downloadFile : handleDirectoryClick}
+        className="relative flex w-52 cursor-pointer flex-col items-center space-y-2 rounded-md border bg-primary-foreground/25 p-4 shadow-none transition-colors hover:bg-primary-foreground/75 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
       >
         {<DropDown file={file} />}
         {getFileIcon(file.isFile)}
@@ -135,7 +149,7 @@ export const FileCard = ({ file }: { file: File }) => {
             <span className="font-semibold">Size:</span> {file.size} KB
           </span>
         )}
-      </button>
+      </article>
     );
   };
 
