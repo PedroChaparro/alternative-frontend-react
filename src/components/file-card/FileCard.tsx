@@ -6,6 +6,7 @@ import {
   UserFilesContext
 } from "@/context/index";
 import { UserFilesActionTypes } from "@/hooks/user-files/UserFilesReducer";
+import { downloadBlob } from "@/lib/utils";
 import { downloadFileService } from "@/services/files/download-file.service";
 import { getFileByUUIDService } from "@/services/files/get-file-by-uuid.service";
 import { File } from "@/types/entities";
@@ -53,20 +54,12 @@ export const FileCard = ({ file }: { file: File }) => {
       fileUUID: file.uuid
     };
 
-    console.log("Starting file download...");
-
-    const blob = await downloadFileService(request);
-
-    if (blob) {
+    try {
+      const blob = await downloadFileService(request);
       const fileName = file.name;
-
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = fileName;
-      a.click();
-    } else {
-      console.error("No file content found in the response.");
+      downloadBlob({ file: blob, fileName });
+    } catch {
+      toast.error("An error occurred while downloading the file");
     }
   };
 
