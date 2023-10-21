@@ -16,11 +16,11 @@ export const downloadFileService = async (
         headers: {
           Authorization: `Bearer ${req.token}`
         },
-        responseType: 'blob'
+        responseType: "blob"
       }
     );
 
-    return response.data; 
+    return response.data;
   } catch (error) {
     let errorMsg = "There was an error while trying to download the file";
 

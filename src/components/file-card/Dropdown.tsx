@@ -3,7 +3,7 @@
 import { FilesDialogsContext } from "@/context/index";
 import { File } from "@/types/entities";
 import { Dialogs } from "@/types/enums";
-import { Key, Download, MoreVertical, PenBox, Truck } from "lucide-react";
+import { Download, Key, MoreVertical, PenBox, Truck } from "lucide-react";
 import { useContext } from "react";
 
 import { Button } from "../ui/button";
