@@ -19,7 +19,8 @@ const defaultValues: FilesDialogsContext = {
   dialogsOpenState: {
     RENAME_FILE: false,
     MOVE_FILE: false,
-    CREATE_DIRECTORY: false
+    CREATE_DIRECTORY: false,
+    ACCESS_MANAGEMENT: false
   },
   selectedFile: null,
   updateDialogOpenState: () => {},
