@@ -48,29 +48,25 @@ export const FileCard = ({ file }: { file: File }) => {
   const { dialogsOpenState } = useContext(FilesDialogsContext);
 
   const downloadFile = async () => {
-    try {
-      const request = {
-        token: session?.token as string,
-        fileUUID: file.uuid
-      };
+    const request = {
+      token: session?.token as string,
+      fileUUID: file.uuid
+    };
 
-      console.log("Starting file download...");
+    console.log("Starting file download...");
 
-      const response = await downloadFileService(request);
+    const blob = await downloadFileService(request);
 
-      if (response.success) {
-        console.log("File downloaded successfully.");
-        const blob = new Blob([response.msg]);
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "";
-        a.click();
-      } else {
-        console.error("Error:", response.msg);
-      }
-    } catch (error) {
-      console.error("An error occurred:", error);
+    if (blob) {
+      const fileName = file.name;
+
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = fileName;
+      a.click();
+    } else {
+      console.error("No file content found in the response.");
     }
   };
 

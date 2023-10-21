@@ -6,28 +6,21 @@ type DownloadFileRequest = {
   fileUUID: string;
 };
 
-type DownloadFileResponse = {
-  success: boolean;
-  msg: string;
-};
-
 export const downloadFileService = async (
   req: DownloadFileRequest
-): Promise<DownloadFileResponse> => {
+): Promise<Blob> => {
   try {
-    await axios.get(
+    const response = await axios.get(
       `${ENVIRONMENT.PROXY_BASE_URL}/file/download/${req.fileUUID}`,
       {
         headers: {
           Authorization: `Bearer ${req.token}`
-        }
+        },
+        responseType: 'blob'
       }
     );
-    
-    return {
-      success: true,
-      msg: "File downloaded successfully"
-    };
+
+    return response.data; 
   } catch (error) {
     let errorMsg = "There was an error while trying to download the file";
 
@@ -35,9 +28,6 @@ export const downloadFileService = async (
       errorMsg = error.response?.data.msg || errorMsg;
     }
 
-    return {
-      success: false,
-      msg: errorMsg
-    };
+    throw new Error(errorMsg);
   }
 };
