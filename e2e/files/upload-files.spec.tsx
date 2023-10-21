@@ -40,9 +40,9 @@ test.describe.serial("Users can upload files", () => {
       exact: true
     });
     await filesInput.setInputFiles([
-      path.join(__dirname, "data/yellow.jpg"),
-      path.join(__dirname, "data/blue.jpg"),
-      path.join(__dirname, "data/red.jpg")
+      path.join(__dirname, "data/in/yellow.jpg"),
+      path.join(__dirname, "data/in/blue.jpg"),
+      path.join(__dirname, "data/in/red.jpg")
     ]);
 
     // Submit the form
@@ -73,7 +73,9 @@ test.describe.serial("Users can upload files", () => {
     const filesInput = page.getByLabel("Choose files to upload", {
       exact: true
     });
-    await filesInput.setInputFiles([path.join(__dirname, "data/yellow.jpg")]);
+    await filesInput.setInputFiles([
+      path.join(__dirname, "data/in/yellow.jpg")
+    ]);
 
     // Submit the form
     await page.getByRole("button", { name: "Upload", exact: true }).click();
