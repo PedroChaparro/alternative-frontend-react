@@ -120,10 +120,11 @@ export const FileCard = ({ file }: { file: File }) => {
     }
 
     return (
-      <button
-        className="relative flex w-52 cursor-pointer flex-col items-center space-y-2 rounded-md border bg-primary-foreground/25 p-4 shadow-none transition-colors hover:bg-primary-foreground/75 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-        onClick={file.isFile ? downloadFile : handleDirectoryClick}
+      <article
+        role="button"
         aria-label={`${file.name} card`}
+        onClick={file.isFile ? downloadFile : handleDirectoryClick}
+        className="relative flex w-52 cursor-pointer flex-col items-center space-y-2 rounded-md border bg-primary-foreground/25 p-4 shadow-none transition-colors hover:bg-primary-foreground/75 hover:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
       >
         {<DropDown file={file} />}
         {getFileIcon(file.isFile)}
@@ -135,7 +136,7 @@ export const FileCard = ({ file }: { file: File }) => {
             <span className="font-semibold">Size:</span> {file.size} KB
           </span>
         )}
-      </button>
+      </article>
     );
   };
 

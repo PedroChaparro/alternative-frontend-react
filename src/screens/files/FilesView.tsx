@@ -2,6 +2,7 @@ import { FilesGrid } from "@/components/files-grid/FilesGrid";
 import { FilesDialogsContext, UserFilesContext } from "@/context/index";
 import { useContext } from "react";
 
+import { AccessManagementDialog } from "./dialogs/access-management/AccessManagementDialog";
 import { MoveFileDialog } from "./dialogs/move-file/MoveFileDialog";
 import { RenameFileDialog } from "./dialogs/rename-file/RenameFileDialog";
 
@@ -18,8 +19,9 @@ export const FilesView = () => {
           files={userFiles}
         />
       </section>
-      <RenameFileDialog />
+      {dialogsOpenState.RENAME_FILE && <RenameFileDialog />}
       {dialogsOpenState.MOVE_FILE && <MoveFileDialog />}
+      {dialogsOpenState.ACCESS_MANAGEMENT && <AccessManagementDialog />}
     </main>
   );
 };
