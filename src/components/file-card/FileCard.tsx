@@ -6,6 +6,7 @@ import {
   UserFilesContext
 } from "@/context/index";
 import { UserFilesActionTypes } from "@/hooks/user-files/UserFilesReducer";
+import { downloadFileService } from "@/services/files/download-file.service";
 import { getFileByUUIDService } from "@/services/files/get-file-by-uuid.service";
 import { File } from "@/types/entities";
 import { NavigationParams } from "@/types/enums";
@@ -46,8 +47,31 @@ export const FileCard = ({ file }: { file: File }) => {
   const { userFilesDispatcher } = useContext(UserFilesContext);
   const { dialogsOpenState } = useContext(FilesDialogsContext);
 
-  const downloadFile = () => {
-    console.log("Downloading file");
+  const downloadFile = async () => {
+    try {
+      const request = {
+        token: session?.token as string,
+        fileUUID: file.uuid
+      };
+
+      console.log("Starting file download...");
+
+      const response = await downloadFileService(request);
+
+      if (response.success) {
+        console.log("File downloaded successfully.");
+        const blob = new Blob([response.msg]);
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "";
+        a.click();
+      } else {
+        console.error("Error:", response.msg);
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
   };
 
   const handleDirectoryClick = () => {

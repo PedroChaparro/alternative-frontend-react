@@ -3,7 +3,7 @@
 import { FilesDialogsContext } from "@/context/index";
 import { File } from "@/types/entities";
 import { Dialogs } from "@/types/enums";
-import { MoreVertical, PenBox, Truck } from "lucide-react";
+import { Download, MoreVertical, PenBox, Truck } from "lucide-react";
 import { useContext } from "react";
 
 import { Button } from "../ui/button";
@@ -58,12 +58,10 @@ export const DropDown = ({ file }: { file: File }) => {
     if (file.isFile) {
       return (
         <DropdownMenuContent className="w-48">
-          {/*
           <DropdownMenuItem>
             <Download className="mr-2 h-4 w-4" />
             Download file
           </DropdownMenuItem>
-          */}
           {sharedActions}
         </DropdownMenuContent>
       );
