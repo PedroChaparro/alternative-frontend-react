@@ -58,6 +58,7 @@ export const ShareFileForm = ({ shareCallback }: ShareFileFormProps) => {
 
     if (response.success) {
       shareCallback(username);
+      toast.success("File shared successfully");
       form.setValue("username", "");
     } else {
       toast.error(`Error shared file: ${response.msg}`);

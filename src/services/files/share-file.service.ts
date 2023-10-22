@@ -1,5 +1,5 @@
-import axios, { AxiosError } from "axios";
 import { ENVIRONMENT } from "@/config/environment";
+import axios, { AxiosError } from "axios";
 
 type ShareFileRequest = {
   token: string;
