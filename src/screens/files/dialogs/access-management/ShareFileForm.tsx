@@ -7,10 +7,13 @@ import {
   FormMessage
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { AuthContext, FilesDialogsContext } from "@/context";
+import { shareFileService } from "@/services/files/share-file.service";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import * as z from "zod";
 
 const shareFileSchema = z.object({
@@ -25,24 +28,42 @@ interface ShareFileFormProps {
 }
 
 export const ShareFileForm = ({ shareCallback }: ShareFileFormProps) => {
+  const { selectedFile } = useContext(FilesDialogsContext);
+  const { session } = useContext(AuthContext);
   const [sharing, setSharing] = useState(false);
+  const [_usernameValue, setUsernameValue] = useState("");
+
   const form = useForm<z.infer<typeof shareFileSchema>>({
-    resolver: zodResolver(shareFileSchema)
+    resolver: zodResolver(shareFileSchema),
+    defaultValues: {
+      username: ""
+    }
   });
 
   const onSubmit = async (data: z.infer<typeof shareFileSchema>) => {
     setSharing(true);
     await shareFile(data.username);
     setSharing(false);
+    setUsernameValue("");
   };
 
   const shareFile = async (username: string) => {
-    // TODO: Make the request to share the file
-    console.log(`Sharing file with ${username}`);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    setSharing(true);
 
-    // Add the user to the UI
-    shareCallback(username);
+    const response = await shareFileService({
+      token: session?.token as string,
+      fileUUID: selectedFile?.uuid as string,
+      otherUsername: username
+    });
+
+    if (response.success) {
+      shareCallback(username);
+      form.setValue("username", "");
+    } else {
+      toast.error(`Error shared file: ${response.msg}`);
+    }
+
+    setSharing(false);
   };
 
   return (
