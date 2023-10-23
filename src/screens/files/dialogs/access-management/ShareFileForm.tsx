@@ -31,7 +31,6 @@ export const ShareFileForm = ({ shareCallback }: ShareFileFormProps) => {
   const { selectedFile } = useContext(FilesDialogsContext);
   const { session } = useContext(AuthContext);
   const [sharing, setSharing] = useState(false);
-  const [_usernameValue, setUsernameValue] = useState("");
 
   const form = useForm<z.infer<typeof shareFileSchema>>({
     resolver: zodResolver(shareFileSchema),
@@ -44,7 +43,6 @@ export const ShareFileForm = ({ shareCallback }: ShareFileFormProps) => {
     setSharing(true);
     await shareFile(data.username);
     setSharing(false);
-    setUsernameValue("");
   };
 
   const shareFile = async (username: string) => {
