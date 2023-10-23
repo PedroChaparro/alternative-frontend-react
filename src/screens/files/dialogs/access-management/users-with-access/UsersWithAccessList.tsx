@@ -35,7 +35,11 @@ export const UsersWithAccessList = ({
     return (
       <ScrollArea className="flex max-h-64 flex-col gap-y-2">
         {usersWithAccess.map((user) => (
-          <UserWithAccessRow user={user} unshareCallback={unshareCallback} />
+          <UserWithAccessRow
+            key={user}
+            user={user}
+            unshareCallback={unshareCallback}
+          />
         ))}
       </ScrollArea>
     );
