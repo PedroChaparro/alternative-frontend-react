@@ -12,7 +12,19 @@ test.describe.serial("Users can share files", () => {
   const usernameShare = faker.internet.userName();
   const passwordShare = faker.internet.password({ length: 8 });
 
-  test("Register test user share", async ({ page }) => {
+  test("Register file owner", async ({ page }) => {
+    await page.goto("/register");
+
+    await page.getByLabel("Username").fill(username);
+    await page.getByLabel("Password", { exact: true }).fill(password);
+    await page.getByLabel("Confirm Password", { exact: true }).fill(password);
+    await page.getByRole("button", { name: "Submit", exact: true }).click();
+
+    await expect(page.getByText("Account created successfully")).toBeVisible();
+    await page.waitForURL(/\/files$/);
+  });
+
+  test("Register another user", async ({ page }) => {
     await page.goto("/register");
 
     await page.getByLabel("Username").fill(usernameShare);
@@ -20,18 +32,6 @@ test.describe.serial("Users can share files", () => {
     await page
       .getByLabel("Confirm Password", { exact: true })
       .fill(passwordShare);
-    await page.getByRole("button", { name: "Submit", exact: true }).click();
-
-    await expect(page.getByText("Account created successfully")).toBeVisible();
-    await page.waitForURL(/\/files$/);
-  });
-
-  test("Register test user", async ({ page }) => {
-    await page.goto("/register");
-
-    await page.getByLabel("Username").fill(username);
-    await page.getByLabel("Password", { exact: true }).fill(password);
-    await page.getByLabel("Confirm Password", { exact: true }).fill(password);
     await page.getByRole("button", { name: "Submit", exact: true }).click();
 
     await expect(page.getByText("Account created successfully")).toBeVisible();
@@ -91,6 +91,17 @@ test.describe.serial("Users can share files", () => {
     await page.getByRole("button", { name: "Share", exact: true }).click();
 
     // Assert an alert is shown
-    await expect(page.getByText("File shared successfully")).toBeVisible();
+    await expect(
+      page.getByText("The file has been shared successfully")
+    ).toBeVisible();
+
+    // Assert the form is reset
+    await expect(page.getByLabel("Share with", { exact: true })).toHaveValue(
+      ""
+    );
+
+    // Assert the username appears in the list
+    const userRow = page.getByText(new RegExp(usernameShare, "i"));
+    await expect(userRow).toBeVisible();
   });
 });
