@@ -3,3 +3,4 @@ export { RegisterPage } from "./auth/register/page";
 export { ProfilePage } from "./auth/profile/Profile";
 export { FilesView } from "./files/FilesView";
 export { Landing } from "./Landing";
+export { SharedFilesView } from "./shared_files/SharedFilesView";
