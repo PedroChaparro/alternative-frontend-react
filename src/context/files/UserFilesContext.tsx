@@ -1,12 +1,12 @@
-import { UserFilesAction } from "@/hooks/user-files/UserFilesReducer";
-import { useUserFiles } from "@/hooks/user-files/useUserFiles";
+import { FilesAction } from "@/hooks/user-files/filesReducer";
+import { useFiles } from "@/hooks/user-files/useFiles";
 import { File } from "@/types/entities";
 import { ReactNode, createContext } from "react";
 
 interface UserFilesContext {
   areFilesLoading: boolean;
   userFiles: File[];
-  userFilesDispatcher: React.Dispatch<UserFilesAction>;
+  userFilesDispatcher: React.Dispatch<FilesAction>;
 }
 
 const defaultValues: UserFilesContext = {
@@ -20,7 +20,7 @@ const defaultValues: UserFilesContext = {
 export const UserFilesContext = createContext<UserFilesContext>(defaultValues);
 
 export const UserFilesProvider = ({ children }: { children: ReactNode }) => {
-  const { loading, userFiles, userFilesDispatcher } = useUserFiles();
+  const { loading, userFiles, userFilesDispatcher } = useFiles();
 
   return (
     <UserFilesContext.Provider

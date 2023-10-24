@@ -15,7 +15,7 @@ import {
   FoldersNavigationContext,
   UserFilesContext
 } from "@/context/index";
-import { UserFilesActionTypes } from "@/hooks/user-files/UserFilesReducer";
+import { FilesActionType } from "@/hooks/user-files/filesReducer";
 import { createFoldersService } from "@/services/files/create-folders.service";
 import { Dialogs, NavigationParams } from "@/types/enums";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -69,7 +69,7 @@ export const CreateDirectoryForm = () => {
     }
 
     userFilesDispatcher({
-      type: UserFilesActionTypes.ADD_FILE,
+      type: FilesActionType.ADD_FILE,
       payload: {
         uuid: res.directoryUUID,
         isFile: false,

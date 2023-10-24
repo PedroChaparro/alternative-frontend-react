@@ -12,7 +12,7 @@ import {
   FoldersNavigationContext,
   UserFilesContext
 } from "@/context/index";
-import { UserFilesActionTypes } from "@/hooks/user-files/UserFilesReducer";
+import { FilesActionType } from "@/hooks/user-files/filesReducer";
 import { listFilesService } from "@/services/files/list-files.service";
 import { moveFileService } from "@/services/files/move-file.service";
 import { File } from "@/types/entities";
@@ -86,7 +86,7 @@ export const MoveFileDialog = () => {
 
     // Remove the file from the ui
     userFilesDispatcher({
-      type: UserFilesActionTypes.REMOVE_FILE,
+      type: FilesActionType.REMOVE_FILE,
       payload: { uuid: selectedFile.uuid }
     });
   };

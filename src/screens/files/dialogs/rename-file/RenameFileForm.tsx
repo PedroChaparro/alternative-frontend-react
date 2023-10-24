@@ -14,7 +14,7 @@ import {
   FilesDialogsContext,
   UserFilesContext
 } from "@/context/index";
-import { UserFilesActionTypes } from "@/hooks/user-files/UserFilesReducer";
+import { FilesActionType } from "@/hooks/user-files/filesReducer";
 import { renameFileService } from "@/services/files/rename-file.service";
 import { Dialogs } from "@/types/enums";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -65,7 +65,7 @@ export const RenameFileForm = () => {
     }
 
     userFilesDispatcher({
-      type: UserFilesActionTypes.RENAME_FILE,
+      type: FilesActionType.RENAME_FILE,
       payload: {
         uuid: selectedFile.uuid,
         name: newName

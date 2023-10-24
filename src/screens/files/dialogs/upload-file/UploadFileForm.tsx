@@ -5,7 +5,7 @@ import {
   FoldersNavigationContext,
   UserFilesContext
 } from "@/context/index";
-import { UserFilesActionTypes } from "@/hooks/user-files/UserFilesReducer";
+import { FilesActionType } from "@/hooks/user-files/filesReducer";
 import { uploadFileService } from "@/services/files/upload-file.service";
 import { File } from "@/types/entities";
 import { NavigationParams } from "@/types/enums";
@@ -89,7 +89,7 @@ export const UploadFileForm = ({
         };
 
         userFilesDispatcher({
-          type: UserFilesActionTypes.ADD_FILE,
+          type: FilesActionType.ADD_FILE,
           payload: newFile
         });
 

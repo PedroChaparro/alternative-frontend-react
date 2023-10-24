@@ -5,7 +5,7 @@ import {
   FoldersNavigationContext,
   UserFilesContext
 } from "@/context/index";
-import { UserFilesActionTypes } from "@/hooks/user-files/UserFilesReducer";
+import { FilesActionType } from "@/hooks/user-files/filesReducer";
 import { downloadBlob } from "@/lib/utils";
 import { downloadFileService } from "@/services/files/download-file.service";
 import { getFileByUUIDService } from "@/services/files/get-file-by-uuid.service";
@@ -90,7 +90,7 @@ export const FileCard = ({ file }: { file: File }) => {
       }
 
       userFilesDispatcher({
-        type: UserFilesActionTypes.MARK_FILE_AS_READY,
+        type: FilesActionType.MARK_FILE_AS_READY,
         payload: res.file
       });
 
@@ -104,7 +104,7 @@ export const FileCard = ({ file }: { file: File }) => {
 
         // Remove file from the UI
         userFilesDispatcher({
-          type: UserFilesActionTypes.REMOVE_FILE,
+          type: FilesActionType.REMOVE_FILE,
           payload: file
         });
 

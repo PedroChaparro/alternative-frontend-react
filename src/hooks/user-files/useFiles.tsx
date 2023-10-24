@@ -5,9 +5,9 @@ import { useContext, useEffect, useReducer, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
-import { UserFilesActionTypes, userFilesReducer } from "./UserFilesReducer";
+import { FilesActionType, filesReducer } from "./filesReducer";
 
-export const useUserFiles = () => {
+export const useFiles = () => {
   // Router state
   const navigate = useNavigate();
   const { getParam } = useContext(FoldersNavigationContext);
@@ -18,7 +18,7 @@ export const useUserFiles = () => {
 
   // User files state
   const [loading, setLoading] = useState(false);
-  const [userFiles, userFilesDispatcher] = useReducer(userFilesReducer, []);
+  const [userFiles, userFilesDispatcher] = useReducer(filesReducer, []);
 
   // Get the user files when the directory changes
   useEffect(() => {
@@ -35,7 +35,7 @@ export const useUserFiles = () => {
       }
 
       userFilesDispatcher({
-        type: UserFilesActionTypes.SET_FILES,
+        type: FilesActionType.SET_FILES,
         payload: response.files
       });
       setLoading(false);
