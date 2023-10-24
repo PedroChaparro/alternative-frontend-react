@@ -3,18 +3,18 @@ import { listFilesService } from "@/services/files/list-files.service";
 import { listSharedFilesService } from "@/services/files/list-shared-files.service";
 import { NavigationParams } from "@/types/enums";
 import { useContext, useEffect, useReducer, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 import { FilesActionType, filesReducer } from "./filesReducer";
 
-interface useFileProps {
-  filesToList: "user" | "shared";
-}
-
-export const useFiles = ({ filesToList }: useFileProps) => {
+export const useFiles = () => {
   // Router state
   const navigate = useNavigate();
+
+  const location = useLocation();
+  const shouldListSharedFiles = location.pathname.endsWith("shared-with-me");
+
   const { getParam } = useContext(FoldersNavigationContext);
   const directory = getParam(NavigationParams.DIRECTORY);
 
@@ -22,9 +22,8 @@ export const useFiles = ({ filesToList }: useFileProps) => {
   const { session } = useContext(AuthContext);
 
   // User files state
-  const shouldListSharedFiles = filesToList === "shared";
   const [loading, setLoading] = useState(false);
-  const [userFiles, userFilesDispatcher] = useReducer(filesReducer, []);
+  const [files, filesDispatcher] = useReducer(filesReducer, []);
 
   // Get the user files when the directory changes
   useEffect(() => {
@@ -53,7 +52,7 @@ export const useFiles = ({ filesToList }: useFileProps) => {
         navigate("/");
       }
 
-      userFilesDispatcher({
+      filesDispatcher({
         type: FilesActionType.SET_FILES,
         payload: res.files
       });
@@ -61,11 +60,11 @@ export const useFiles = ({ filesToList }: useFileProps) => {
     };
 
     getFiles();
-  }, [directory]);
+  }, [directory, location]);
 
   return {
     loading,
-    userFiles,
-    userFilesDispatcher
+    files,
+    filesDispatcher
   };
 };
