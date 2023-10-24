@@ -1,3 +1,12 @@
+# [0.12.0](https://github.com/PedroChaparro/alternative-frontend-react/compare/v0.11.1...v0.12.0) (2023-10-24)
+
+
+### Features
+
+* Logout ([#38](https://github.com/PedroChaparro/alternative-frontend-react/issues/38)) ([da28481](https://github.com/PedroChaparro/alternative-frontend-react/commit/da2848173338776dd0fc64f12b18aa53f73f80b5))
+
+
+
 ## [0.11.1](https://github.com/PedroChaparro/alternative-frontend-react/compare/v0.11.0...v0.11.1) (2023-10-24)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * Download file ([#28](https://github.com/PedroChaparro/alternative-frontend-react/issues/28)) ([b55be6c](https://github.com/PedroChaparro/alternative-frontend-react/commit/b55be6cec070a0e50d94c5062eab408d9d9c0e31))
-
-
-
-# [0.8.0](https://github.com/PedroChaparro/alternative-frontend-react/compare/v0.7.0...v0.8.0) (2023-10-21)
-
-
-### Features
-
-* Access management dialog ([#27](https://github.com/PedroChaparro/alternative-frontend-react/issues/27)) ([24e4048](https://github.com/PedroChaparro/alternative-frontend-react/commit/24e40482f1c44e21ab25a52a758b1acf8cf7ef37))
 
 
 
