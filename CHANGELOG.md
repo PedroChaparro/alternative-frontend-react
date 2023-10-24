@@ -1,3 +1,12 @@
+# [0.11.0](https://github.com/PedroChaparro/alternative-frontend-react/compare/v0.10.0...v0.11.0) (2023-10-24)
+
+
+### Features
+
+* List shared files ([#33](https://github.com/PedroChaparro/alternative-frontend-react/issues/33)) ([b19c51f](https://github.com/PedroChaparro/alternative-frontend-react/commit/b19c51f733526ecefe01806ea6112aadeb275532))
+
+
+
 # [0.10.0](https://github.com/PedroChaparro/alternative-frontend-react/compare/v0.9.0...v0.10.0) (2023-10-23)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * Create folder ([#24](https://github.com/PedroChaparro/alternative-frontend-react/issues/24)) ([54dc7c1](https://github.com/PedroChaparro/alternative-frontend-react/commit/54dc7c15c36fa3b19bad68caed62a6c45e8ccb54))
-
-
-
-## [0.6.1](https://github.com/PedroChaparro/alternative-frontend-react/compare/v0.6.0...v0.6.1) (2023-10-20)
-
-
-### Bug Fixes
-
-* Go back button in folders navigation ([#23](https://github.com/PedroChaparro/alternative-frontend-react/issues/23)) ([07edb44](https://github.com/PedroChaparro/alternative-frontend-react/commit/07edb442b2524bd739bf7f0d6ea13f536b1a62b9))
 
 
 
