@@ -81,6 +81,7 @@ export const UploadFileForm = ({
           uuid: res.fileUUID,
           isReady: false,
           isFile: true,
+          isOwnedByUser: true,
 
           // Zero values
           name: "",
