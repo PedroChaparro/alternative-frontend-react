@@ -1,3 +1,12 @@
+# [0.13.0](https://github.com/PedroChaparro/alternative-frontend-react/compare/v0.12.0...v0.13.0) (2023-10-24)
+
+
+### Features
+
+* **ui:** Show file size with units ([#41](https://github.com/PedroChaparro/alternative-frontend-react/issues/41)) ([8614d86](https://github.com/PedroChaparro/alternative-frontend-react/commit/8614d8617a7bc8bb68c5739b3b9ed4af4db400fd))
+
+
+
 # [0.12.0](https://github.com/PedroChaparro/alternative-frontend-react/compare/v0.11.1...v0.12.0) (2023-10-24)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * Share file ([#32](https://github.com/PedroChaparro/alternative-frontend-react/issues/32)) ([e91567a](https://github.com/PedroChaparro/alternative-frontend-react/commit/e91567a7a741e1bc9894753ad40e518d559bef20))
-
-
-
-# [0.9.0](https://github.com/PedroChaparro/alternative-frontend-react/compare/v0.8.0...v0.9.0) (2023-10-21)
-
-
-### Features
-
-* Download file ([#28](https://github.com/PedroChaparro/alternative-frontend-react/issues/28)) ([b55be6c](https://github.com/PedroChaparro/alternative-frontend-react/commit/b55be6cec070a0e50d94c5062eab408d9d9c0e31))
 
 
 
