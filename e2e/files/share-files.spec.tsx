@@ -12,6 +12,8 @@ test.describe.serial("Users can share files", () => {
   const usernameShare = faker.internet.userName();
   const passwordShare = faker.internet.password({ length: 8 });
 
+  const sharedFolder = faker.system.commonFileName();
+
   test("Register file owner", async ({ page }) => {
     await page.goto("/register");
 
@@ -46,6 +48,19 @@ test.describe.serial("Users can share files", () => {
     await page.getByRole("button", { name: "Submit", exact: true }).click();
     await page.waitForURL(/\/files$/);
 
+    // Create a folder
+    await page.getByRole("button", { name: "Create folder" }).click();
+    await expect(page.getByRole("dialog")).toBeVisible();
+    await page.getByLabel("Name").fill(sharedFolder);
+    await page.getByRole("button", { name: "Create", exact: true }).click();
+
+    // Move to the folder
+    const folderCard = page.getByRole("button", {
+      name: `${sharedFolder} card`
+    });
+    await expect(folderCard).toBeVisible();
+    await folderCard.click();
+
     // Open the upload modal
     await page.getByRole("button", { name: "Upload file" }).click();
     await expect(page.getByRole("dialog")).toBeVisible();
@@ -61,7 +76,7 @@ test.describe.serial("Users can share files", () => {
     await expect(page.getByText("yellow.jpg")).toBeVisible();
   });
 
-  test("Share the uploaded file", async ({ page }) => {
+  test("Share the folder with the other user", async ({ page }) => {
     // Login with the registered user
     await page.goto("/login");
     await page.getByLabel("Username").fill(username);
@@ -70,9 +85,11 @@ test.describe.serial("Users can share files", () => {
     await page.waitForURL(/\/files$/);
 
     // Open the file dropdown
-    const fileCard = page.getByRole("button", { name: "yellow.jpg card" });
-    await expect(fileCard).toBeVisible();
-    await fileCard.getByLabel("More options for yellow.jpg").click();
+    const folderCard = page.getByRole("button", {
+      name: `${sharedFolder} card`
+    });
+    await expect(folderCard).toBeVisible();
+    await folderCard.getByLabel(`More options for ${sharedFolder}`).click();
 
     // Select the "Manage access" option
     const shareButton = page.getByRole("menuitem", {
@@ -103,5 +120,30 @@ test.describe.serial("Users can share files", () => {
     // Assert the username appears in the list
     const userRow = page.getByText(new RegExp(usernameShare, "i"));
     await expect(userRow).toBeVisible();
+  });
+
+  test("The other user can see the shared file", async ({ page }) => {
+    // Login with the other user
+    await page.goto("/login");
+    await page.getByLabel("Username").fill(usernameShare);
+    await page.getByLabel("Password", { exact: true }).fill(passwordShare);
+    await page.getByRole("button", { name: "Submit", exact: true }).click();
+    await page.waitForURL(/\/files$/);
+
+    // Move to the shared files view
+    await page.getByRole("button", { name: "Shared with me" }).click();
+    await page.waitForURL(/\/shared-with-me$/);
+
+    // Assert the shared folder is shown
+    const folderCard = page.getByRole("button", {
+      name: `${sharedFolder} card`
+    });
+    await expect(folderCard).toBeVisible();
+
+    // Open the folder
+    await folderCard.click();
+
+    // Assert the shared file is shown
+    await expect(page.getByText("yellow.jpg")).toBeVisible();
   });
 });
