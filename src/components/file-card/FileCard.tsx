@@ -1,9 +1,9 @@
 import { PARAMETERS } from "@/config/parameters";
 import {
   AuthContext,
+  FilesContext,
   FilesDialogsContext,
-  FoldersNavigationContext,
-  UserFilesContext
+  FoldersNavigationContext
 } from "@/context/index";
 import { FilesActionType } from "@/hooks/user-files/filesReducer";
 import { downloadBlob } from "@/lib/utils";
@@ -45,7 +45,7 @@ export const FileCard = ({ file }: { file: File }) => {
 
   const { pushToHistory } = useContext(FoldersNavigationContext);
 
-  const { userFilesDispatcher } = useContext(UserFilesContext);
+  const { userFilesDispatcher } = useContext(FilesContext);
   const { dialogsOpenState } = useContext(FilesDialogsContext);
 
   const downloadFile = async () => {

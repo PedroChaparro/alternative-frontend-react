@@ -8,9 +8,9 @@ import {
 } from "@/components/ui/dialog";
 import {
   AuthContext,
+  FilesContext,
   FilesDialogsContext,
-  FoldersNavigationContext,
-  UserFilesContext
+  FoldersNavigationContext
 } from "@/context/index";
 import { FilesActionType } from "@/hooks/user-files/filesReducer";
 import { listFilesService } from "@/services/files/list-files.service";
@@ -27,7 +27,7 @@ export const MoveFileDialog = () => {
   const { session } = useContext(AuthContext);
 
   // Files state
-  const { userFilesDispatcher } = useContext(UserFilesContext);
+  const { userFilesDispatcher } = useContext(FilesContext);
 
   // Navigation state
   const { clearHistory, getParam } = useContext(FoldersNavigationContext);

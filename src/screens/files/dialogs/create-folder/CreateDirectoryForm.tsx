@@ -11,9 +11,9 @@ import {
 import { Input } from "@/components/ui/input";
 import {
   AuthContext,
+  FilesContext,
   FilesDialogsContext,
-  FoldersNavigationContext,
-  UserFilesContext
+  FoldersNavigationContext
 } from "@/context/index";
 import { FilesActionType } from "@/hooks/user-files/filesReducer";
 import { createFoldersService } from "@/services/files/create-folders.service";
@@ -38,7 +38,7 @@ export const CreateDirectoryForm = () => {
 
   const { closeDialog } = useContext(FilesDialogsContext);
   const { session } = useContext(AuthContext);
-  const { userFilesDispatcher } = useContext(UserFilesContext);
+  const { userFilesDispatcher } = useContext(FilesContext);
 
   const [loading, setLoading] = useState(false);
   const form = useForm<z.infer<typeof createDirectorySchema>>({

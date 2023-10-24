@@ -3,13 +3,13 @@ import { useFiles } from "@/hooks/user-files/useFiles";
 import { File } from "@/types/entities";
 import { ReactNode, createContext } from "react";
 
-interface UserFilesContext {
+interface FilesContext {
   areFilesLoading: boolean;
   userFiles: File[];
   userFilesDispatcher: React.Dispatch<FilesAction>;
 }
 
-const defaultValues: UserFilesContext = {
+const defaultValues: FilesContext = {
   areFilesLoading: false,
   userFiles: [],
   userFilesDispatcher: () => {
@@ -17,13 +17,15 @@ const defaultValues: UserFilesContext = {
   }
 };
 
-export const UserFilesContext = createContext<UserFilesContext>(defaultValues);
+export const FilesContext = createContext<FilesContext>(defaultValues);
 
-export const UserFilesProvider = ({ children }: { children: ReactNode }) => {
-  const { loading, userFiles, userFilesDispatcher } = useFiles();
+export const FilesProvider = ({ children }: { children: ReactNode }) => {
+  const { loading, userFiles, userFilesDispatcher } = useFiles({
+    filesToList: "user"
+  });
 
   return (
-    <UserFilesContext.Provider
+    <FilesContext.Provider
       value={{
         areFilesLoading: loading,
         userFiles,
@@ -31,6 +33,6 @@ export const UserFilesProvider = ({ children }: { children: ReactNode }) => {
       }}
     >
       {children}
-    </UserFilesContext.Provider>
+    </FilesContext.Provider>
   );
 };

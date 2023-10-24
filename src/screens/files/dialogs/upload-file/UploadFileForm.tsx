@@ -2,8 +2,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
   AuthContext,
-  FoldersNavigationContext,
-  UserFilesContext
+  FilesContext,
+  FoldersNavigationContext
 } from "@/context/index";
 import { FilesActionType } from "@/hooks/user-files/filesReducer";
 import { uploadFileService } from "@/services/files/upload-file.service";
@@ -27,7 +27,7 @@ export const UploadFileForm = ({
   const directory = getParam(NavigationParams.DIRECTORY);
 
   // Files state
-  const { userFilesDispatcher } = useContext(UserFilesContext);
+  const { userFilesDispatcher } = useContext(FilesContext);
   const [files, setFiles] = useState<FileList | null>(null);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
