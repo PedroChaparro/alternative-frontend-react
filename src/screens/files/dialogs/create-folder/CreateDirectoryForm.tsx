@@ -74,7 +74,6 @@ export const CreateDirectoryForm = () => {
         uuid: res.directoryUUID,
         isFile: false,
         isReady: true,
-        isOwnedByUser: true,
         name,
         size: 0
       }
