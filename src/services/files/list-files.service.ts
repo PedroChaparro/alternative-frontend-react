@@ -5,6 +5,7 @@ import axios, { AxiosError } from "axios";
 type ListFilesRequest = {
   token: string;
   directory: string | null;
+  isListedFromSharedFiles?: boolean;
 };
 
 type ListFilesResponse = {
@@ -13,17 +14,19 @@ type ListFilesResponse = {
   files: File[];
 };
 
-export const listFilesService = async (
-  req: ListFilesRequest
-): Promise<ListFilesResponse> => {
-  const URL = req.directory
-    ? `${ENVIRONMENT.PROXY_BASE_URL}/file/list?directoryUUID=${req.directory}`
+export const listFilesService = async ({
+  token,
+  directory,
+  isListedFromSharedFiles = false
+}: ListFilesRequest): Promise<ListFilesResponse> => {
+  const URL = directory
+    ? `${ENVIRONMENT.PROXY_BASE_URL}/file/list?directoryUUID=${directory}`
     : `${ENVIRONMENT.PROXY_BASE_URL}/file/list`;
 
   try {
     const listFilesResponse = await axios.get(URL, {
       headers: {
-        Authorization: `Bearer ${req.token}`
+        Authorization: `Bearer ${token}`
       }
     });
     const { data } = listFilesResponse;
@@ -31,7 +34,11 @@ export const listFilesService = async (
     return {
       success: true,
       msg: data.msg,
-      files: data.files.map((file: File) => ({ ...file, isReady: true }))
+      files: data.files.map((file: File) => ({
+        ...file,
+        isReady: true,
+        isOwnedByUser: !isListedFromSharedFiles
+      }))
     };
   } catch (error) {
     let errorMsg = "There was an error while trying to list files";
