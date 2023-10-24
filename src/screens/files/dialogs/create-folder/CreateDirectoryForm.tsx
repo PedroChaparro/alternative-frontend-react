@@ -11,11 +11,11 @@ import {
 import { Input } from "@/components/ui/input";
 import {
   AuthContext,
+  FilesContext,
   FilesDialogsContext,
-  FoldersNavigationContext,
-  UserFilesContext
+  FoldersNavigationContext
 } from "@/context/index";
-import { UserFilesActionTypes } from "@/hooks/user-files/UserFilesReducer";
+import { FilesActionType } from "@/hooks/user-files/filesReducer";
 import { createFoldersService } from "@/services/files/create-folders.service";
 import { Dialogs, NavigationParams } from "@/types/enums";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -38,7 +38,8 @@ export const CreateDirectoryForm = () => {
 
   const { closeDialog } = useContext(FilesDialogsContext);
   const { session } = useContext(AuthContext);
-  const { userFilesDispatcher } = useContext(UserFilesContext);
+
+  const { filesDispatcher, showing } = useContext(FilesContext);
 
   const [loading, setLoading] = useState(false);
   const form = useForm<z.infer<typeof createDirectorySchema>>({
@@ -50,6 +51,11 @@ export const CreateDirectoryForm = () => {
 
   const onSubmit = async (data: z.infer<typeof createDirectorySchema>) => {
     if (loading) return;
+
+    if (showing === "shared" && !parent) {
+      toast.error("You must select a directory to create a folder in");
+      return;
+    }
 
     setLoading(true);
     await createDirectory(data.name);
@@ -68,8 +74,8 @@ export const CreateDirectoryForm = () => {
       return;
     }
 
-    userFilesDispatcher({
-      type: UserFilesActionTypes.ADD_FILE,
+    filesDispatcher({
+      type: FilesActionType.ADD_FILE,
       payload: {
         uuid: res.directoryUUID,
         isFile: false,

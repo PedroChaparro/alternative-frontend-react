@@ -2,10 +2,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
   AuthContext,
-  FoldersNavigationContext,
-  UserFilesContext
+  FilesContext,
+  FoldersNavigationContext
 } from "@/context/index";
-import { UserFilesActionTypes } from "@/hooks/user-files/UserFilesReducer";
+import { FilesActionType } from "@/hooks/user-files/filesReducer";
 import { uploadFileService } from "@/services/files/upload-file.service";
 import { File } from "@/types/entities";
 import { NavigationParams } from "@/types/enums";
@@ -27,7 +27,7 @@ export const UploadFileForm = ({
   const directory = getParam(NavigationParams.DIRECTORY);
 
   // Files state
-  const { userFilesDispatcher } = useContext(UserFilesContext);
+  const { filesDispatcher, showing } = useContext(FilesContext);
   const [files, setFiles] = useState<FileList | null>(null);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,6 +37,11 @@ export const UploadFileForm = ({
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (showing === "shared" && !directory) {
+      toast.error("You must select a directory to upload files to.");
+      return;
+    }
 
     // Check files are not empty
     if (!files) {
@@ -87,8 +92,8 @@ export const UploadFileForm = ({
           size: 0
         };
 
-        userFilesDispatcher({
-          type: UserFilesActionTypes.ADD_FILE,
+        filesDispatcher({
+          type: FilesActionType.ADD_FILE,
           payload: newFile
         });
 

@@ -8,11 +8,11 @@ import {
 } from "@/components/ui/dialog";
 import {
   AuthContext,
+  FilesContext,
   FilesDialogsContext,
-  FoldersNavigationContext,
-  UserFilesContext
+  FoldersNavigationContext
 } from "@/context/index";
-import { UserFilesActionTypes } from "@/hooks/user-files/UserFilesReducer";
+import { FilesActionType } from "@/hooks/user-files/filesReducer";
 import { listFilesService } from "@/services/files/list-files.service";
 import { moveFileService } from "@/services/files/move-file.service";
 import { File } from "@/types/entities";
@@ -27,7 +27,7 @@ export const MoveFileDialog = () => {
   const { session } = useContext(AuthContext);
 
   // Files state
-  const { userFilesDispatcher } = useContext(UserFilesContext);
+  const { filesDispatcher } = useContext(FilesContext);
 
   // Navigation state
   const { clearHistory, getParam } = useContext(FoldersNavigationContext);
@@ -85,8 +85,8 @@ export const MoveFileDialog = () => {
     closeDialog(Dialogs.MOVE_FILE);
 
     // Remove the file from the ui
-    userFilesDispatcher({
-      type: UserFilesActionTypes.REMOVE_FILE,
+    filesDispatcher({
+      type: FilesActionType.REMOVE_FILE,
       payload: { uuid: selectedFile.uuid }
     });
   };

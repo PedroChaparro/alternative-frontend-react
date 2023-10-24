@@ -75,9 +75,9 @@ export const useSession = () => {
   };
 
   const logout = () => {
-    setSession(null);
     removeItem("username");
     removeItem("token");
+    setSession(null);
   };
 
   return {

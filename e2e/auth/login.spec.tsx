@@ -32,4 +32,17 @@ test.describe.serial("Users can login", () => {
     await page.getByRole("button", { name: "Submit", exact: true }).click();
     await expect(page.getByText("Invalid credentials")).toBeVisible();
   });
+
+  test("Logout", async ({ page }) => {
+    // Login
+    await page.goto("/login");
+    await page.getByLabel("Username").fill(username);
+    await page.getByLabel("Password", { exact: true }).fill(password);
+    await page.getByRole("button", { name: "Submit", exact: true }).click();
+    await page.waitForURL(/\/files$/);
+
+    // Click logout
+    await page.getByRole("link", { name: "Logout", exact: true }).click();
+    await page.waitForURL(/\/login$/);
+  });
 });

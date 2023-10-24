@@ -75,18 +75,22 @@ export const DropDown = ({ file }: { file: File }) => {
     }
   };
 
+  const options = getMenuOptions();
+
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button
-          variant={"ghost"}
-          className="absolute right-2 top-2 p-2"
-          aria-label={`More options for ${file.name}`}
-        >
-          <MoreVertical />
-        </Button>
-      </DropdownMenuTrigger>
-      {getMenuOptions()}
-    </DropdownMenu>
+    options && (
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button
+            variant={"ghost"}
+            className="absolute right-2 top-2 p-2"
+            aria-label={`More options for ${file.name}`}
+          >
+            <MoreVertical />
+          </Button>
+        </DropdownMenuTrigger>
+        {getMenuOptions()}
+      </DropdownMenu>
+    )
   );
 };
