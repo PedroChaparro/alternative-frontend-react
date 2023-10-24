@@ -84,7 +84,7 @@ test.describe.serial("Users can share files", () => {
     await page.getByRole("button", { name: "Submit", exact: true }).click();
     await page.waitForURL(/\/files$/);
 
-    // Open the file dropdown
+    // Open the folder dropdown
     const folderCard = page.getByRole("button", {
       name: `${sharedFolder} card`
     });
@@ -128,7 +128,7 @@ test.describe.serial("Users can share files", () => {
     await page.getByLabel("Username").fill(usernameShare);
     await page.getByLabel("Password", { exact: true }).fill(passwordShare);
     await page.getByRole("button", { name: "Submit", exact: true }).click();
-    await page.waitForURL(/\/files$/);
+    await expect(page.getByText("No files found here... 🤷")).toBeVisible();
 
     // Move to the shared files view
     await page.getByRole("button", { name: "Shared with me" }).click();
