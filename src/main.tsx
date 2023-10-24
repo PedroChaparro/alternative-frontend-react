@@ -1,9 +1,4 @@
-import {
-  AuthContextProvider,
-  FilesDialogsProvider,
-  FoldersNavigationProviders,
-  UserFilesProvider
-} from "@/context/index";
+import { AuthContextProvider, FilesContextsWrapper } from "@/context/index";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
@@ -17,7 +12,8 @@ import {
   Landing,
   LoginPage,
   ProfilePage,
-  RegisterPage
+  RegisterPage,
+  SharedFilesView
 } from "./screens";
 import { FilesPageLayout } from "./screens/files/FilesLayout";
 
@@ -49,13 +45,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             path="/files"
             element={
               <AuthMiddleware mustBeLoggedIn>
-                <FoldersNavigationProviders>
-                  <FilesDialogsProvider>
-                    <UserFilesProvider>
-                      <FilesPageLayout />
-                    </UserFilesProvider>
-                  </FilesDialogsProvider>
-                </FoldersNavigationProviders>
+                <FilesContextsWrapper>
+                  <FilesPageLayout />
+                </FilesContextsWrapper>
               </AuthMiddleware>
             }
           >
@@ -64,6 +56,14 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
               element={
                 <AuthMiddleware mustBeLoggedIn={true}>
                   <FilesView />
+                </AuthMiddleware>
+              }
+            />
+            <Route
+              path="shared-with-me"
+              element={
+                <AuthMiddleware mustBeLoggedIn={true}>
+                  <SharedFilesView />
                 </AuthMiddleware>
               }
             />

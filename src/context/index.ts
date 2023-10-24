@@ -1,13 +1,5 @@
 export { AuthContext, AuthContextProvider } from "./AuthContext";
-
-export {
-  FilesDialogsContext,
-  FilesDialogsProvider
-} from "./FilesDialogsContext";
-
-export {
-  FoldersNavigationContext,
-  FoldersNavigationProviders
-} from "./FoldersNavigationContext";
-
-export { UserFilesContext, UserFilesProvider } from "./UserFilesContext";
+export { FilesDialogsContext } from "./files/FilesDialogsContext";
+export { FoldersNavigationContext } from "./files/FoldersNavigationContext";
+export { UserFilesContext } from "./files/UserFilesContext";
+export { FilesContextsWrapper } from "./files/FilesContextsWrapper";

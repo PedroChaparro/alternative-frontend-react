@@ -12,7 +12,9 @@ interface UserFilesContext {
 const defaultValues: UserFilesContext = {
   areFilesLoading: false,
   userFiles: [],
-  userFilesDispatcher: () => {}
+  userFilesDispatcher: () => {
+    console.log("hi");
+  }
 };
 
 export const UserFilesContext = createContext<UserFilesContext>(defaultValues);
