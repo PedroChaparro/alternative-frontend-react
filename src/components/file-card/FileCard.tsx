@@ -6,7 +6,7 @@ import {
   FoldersNavigationContext
 } from "@/context/index";
 import { FilesActionType } from "@/hooks/user-files/filesReducer";
-import { downloadBlob } from "@/lib/utils";
+import { downloadBlob } from "@/lib/index";
 import { downloadFileService } from "@/services/files/download-file.service";
 import { getFileByUUIDService } from "@/services/files/get-file-by-uuid.service";
 import { File } from "@/types/entities";
