@@ -5,12 +5,14 @@ import { ReactNode, createContext } from "react";
 
 interface FilesContext {
   areFilesLoading: boolean;
+  showing: "personal" | "shared";
   files: File[];
   filesDispatcher: React.Dispatch<FilesAction>;
 }
 
 const defaultValues: FilesContext = {
   areFilesLoading: false,
+  showing: "personal",
   files: [],
   filesDispatcher: () => {
     console.log("hi");
@@ -20,12 +22,13 @@ const defaultValues: FilesContext = {
 export const FilesContext = createContext<FilesContext>(defaultValues);
 
 export const FilesProvider = ({ children }: { children: ReactNode }) => {
-  const { loading, files, filesDispatcher } = useFiles();
+  const { loading, showing, files, filesDispatcher } = useFiles();
 
   return (
     <FilesContext.Provider
       value={{
         areFilesLoading: loading,
+        showing,
         files,
         filesDispatcher
       }}

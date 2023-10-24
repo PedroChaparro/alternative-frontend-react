@@ -38,7 +38,8 @@ export const CreateDirectoryForm = () => {
 
   const { closeDialog } = useContext(FilesDialogsContext);
   const { session } = useContext(AuthContext);
-  const { filesDispatcher } = useContext(FilesContext);
+
+  const { filesDispatcher, showing } = useContext(FilesContext);
 
   const [loading, setLoading] = useState(false);
   const form = useForm<z.infer<typeof createDirectorySchema>>({
@@ -50,6 +51,11 @@ export const CreateDirectoryForm = () => {
 
   const onSubmit = async (data: z.infer<typeof createDirectorySchema>) => {
     if (loading) return;
+
+    if (showing === "shared" && !parent) {
+      toast.error("You must select a directory to create a folder in");
+      return;
+    }
 
     setLoading(true);
     await createDirectory(data.name);

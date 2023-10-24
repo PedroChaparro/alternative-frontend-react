@@ -8,6 +8,11 @@ import { toast } from "sonner";
 
 import { FilesActionType, filesReducer } from "./filesReducer";
 
+enum PossibleFilesToShow {
+  PERSONAL = "personal",
+  SHARED = "shared"
+}
+
 export const useFiles = () => {
   // Router state
   const navigate = useNavigate();
@@ -22,6 +27,10 @@ export const useFiles = () => {
   const { session } = useContext(AuthContext);
 
   // User files state
+  const showing: PossibleFilesToShow = shouldListSharedFiles
+    ? PossibleFilesToShow.SHARED
+    : PossibleFilesToShow.PERSONAL;
+
   const [loading, setLoading] = useState(false);
   const [files, filesDispatcher] = useReducer(filesReducer, []);
 
@@ -64,6 +73,7 @@ export const useFiles = () => {
 
   return {
     loading,
+    showing,
     files,
     filesDispatcher
   };

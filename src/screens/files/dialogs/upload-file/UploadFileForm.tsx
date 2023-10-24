@@ -27,7 +27,7 @@ export const UploadFileForm = ({
   const directory = getParam(NavigationParams.DIRECTORY);
 
   // Files state
-  const { filesDispatcher } = useContext(FilesContext);
+  const { filesDispatcher, showing } = useContext(FilesContext);
   const [files, setFiles] = useState<FileList | null>(null);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,6 +37,11 @@ export const UploadFileForm = ({
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (showing === "shared" && !directory) {
+      toast.error("You must select a directory to upload files to.");
+      return;
+    }
 
     // Check files are not empty
     if (!files) {
