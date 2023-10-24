@@ -1,11 +1,11 @@
 import { PARAMETERS } from "@/config/parameters";
 import {
   AuthContext,
+  FilesContext,
   FilesDialogsContext,
-  FoldersNavigationContext,
-  UserFilesContext
+  FoldersNavigationContext
 } from "@/context/index";
-import { UserFilesActionTypes } from "@/hooks/user-files/UserFilesReducer";
+import { FilesActionType } from "@/hooks/user-files/filesReducer";
 import { downloadBlob } from "@/lib/utils";
 import { downloadFileService } from "@/services/files/download-file.service";
 import { getFileByUUIDService } from "@/services/files/get-file-by-uuid.service";
@@ -45,7 +45,7 @@ export const FileCard = ({ file }: { file: File }) => {
 
   const { pushToHistory } = useContext(FoldersNavigationContext);
 
-  const { userFilesDispatcher } = useContext(UserFilesContext);
+  const { filesDispatcher } = useContext(FilesContext);
   const { dialogsOpenState } = useContext(FilesDialogsContext);
 
   const downloadFile = async () => {
@@ -89,8 +89,8 @@ export const FileCard = ({ file }: { file: File }) => {
         return false;
       }
 
-      userFilesDispatcher({
-        type: UserFilesActionTypes.MARK_FILE_AS_READY,
+      filesDispatcher({
+        type: FilesActionType.MARK_FILE_AS_READY,
         payload: res.file
       });
 
@@ -103,8 +103,8 @@ export const FileCard = ({ file }: { file: File }) => {
         toast.error("Max ready checks reached");
 
         // Remove file from the UI
-        userFilesDispatcher({
-          type: UserFilesActionTypes.REMOVE_FILE,
+        filesDispatcher({
+          type: FilesActionType.REMOVE_FILE,
           payload: file
         });
 

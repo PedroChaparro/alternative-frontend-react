@@ -4,6 +4,5 @@ export type File = {
   uuid: string;
   size: number;
   isReady: boolean;
-  isOwnedByUser: boolean;
   extension?: string;
 };

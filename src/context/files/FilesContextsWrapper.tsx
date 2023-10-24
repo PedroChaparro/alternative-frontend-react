@@ -1,8 +1,8 @@
 import { ReactNode } from "react";
 
+import { FilesProvider } from "./FilesContext";
 import { FilesDialogsProvider } from "./FilesDialogsContext";
 import { FoldersNavigationProviders } from "./FoldersNavigationContext";
-import { UserFilesProvider } from "./UserFilesContext";
 
 export const FilesContextsWrapper = ({
   children
@@ -12,7 +12,7 @@ export const FilesContextsWrapper = ({
   return (
     <FoldersNavigationProviders>
       <FilesDialogsProvider>
-        <UserFilesProvider>{children}</UserFilesProvider>
+        <FilesProvider>{children}</FilesProvider>
       </FilesDialogsProvider>
     </FoldersNavigationProviders>
   );

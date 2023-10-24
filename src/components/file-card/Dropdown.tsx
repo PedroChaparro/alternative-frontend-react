@@ -63,16 +63,14 @@ export const DropDown = ({ file }: { file: File }) => {
             <Download className="mr-2 h-4 w-4" />
             Download file
           </DropdownMenuItem>
-          {file.isOwnedByUser && sharedActions}
+          {sharedActions}
         </DropdownMenuContent>
       );
     } else {
       return (
-        file.isOwnedByUser && (
-          <DropdownMenuContent className="w-48">
-            {sharedActions}
-          </DropdownMenuContent>
-        )
+        <DropdownMenuContent className="w-48">
+          {sharedActions}
+        </DropdownMenuContent>
       );
     }
   };

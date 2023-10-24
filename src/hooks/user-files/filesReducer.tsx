@@ -1,6 +1,6 @@
 import { File } from "@/types/entities";
 
-export enum UserFilesActionTypes {
+export enum FilesActionType {
   SET_FILES = "SET_FILES",
   GET_FILES = "GET_FILES",
   ADD_FILE = "ADD_FILE",
@@ -9,50 +9,48 @@ export enum UserFilesActionTypes {
   RENAME_FILE = "RENAME_FILE"
 }
 
-export type UserFilesAction =
+export type FilesAction =
   | {
-      type: UserFilesActionTypes.SET_FILES;
+      type: FilesActionType.SET_FILES;
       payload: File[];
     }
   | {
-      type: UserFilesActionTypes.GET_FILES;
+      type: FilesActionType.GET_FILES;
       payload: never;
     }
   | {
-      type: UserFilesActionTypes.REMOVE_FILE;
+      type: FilesActionType.REMOVE_FILE;
       payload: {
         uuid: string;
       };
     }
   | {
-      type:
-        | UserFilesActionTypes.ADD_FILE
-        | UserFilesActionTypes.MARK_FILE_AS_READY;
+      type: FilesActionType.ADD_FILE | FilesActionType.MARK_FILE_AS_READY;
       payload: File;
     }
   | {
-      type: UserFilesActionTypes.RENAME_FILE;
+      type: FilesActionType.RENAME_FILE;
       payload: {
         uuid: string;
         name: string;
       };
     };
 
-export function userFilesReducer(state: File[], action: UserFilesAction) {
+export function filesReducer(state: File[], action: FilesAction) {
   switch (action.type) {
-    case UserFilesActionTypes.SET_FILES:
+    case FilesActionType.SET_FILES:
       return action.payload;
 
-    case UserFilesActionTypes.GET_FILES:
+    case FilesActionType.GET_FILES:
       return state;
 
-    case UserFilesActionTypes.ADD_FILE:
+    case FilesActionType.ADD_FILE:
       return [...state, action.payload];
 
-    case UserFilesActionTypes.REMOVE_FILE:
+    case FilesActionType.REMOVE_FILE:
       return state.filter((file) => file.uuid !== action.payload.uuid);
 
-    case UserFilesActionTypes.RENAME_FILE:
+    case FilesActionType.RENAME_FILE:
       return state.map((file) => {
         if (file.uuid === action.payload.uuid) {
           return {
@@ -64,7 +62,7 @@ export function userFilesReducer(state: File[], action: UserFilesAction) {
         return file;
       });
 
-    case UserFilesActionTypes.MARK_FILE_AS_READY:
+    case FilesActionType.MARK_FILE_AS_READY:
       return state.map((file) => {
         if (file.uuid === action.payload.uuid) {
           return {

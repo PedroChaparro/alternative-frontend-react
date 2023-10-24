@@ -1,9 +1,10 @@
 import { FilesGrid } from "@/components/files-grid/FilesGrid";
-import { useSharedFiles } from "@/hooks/shared-files/useSharedFiles";
+import { FilesContext } from "@/context";
+import { useContext } from "react";
 
 export const SharedFilesView = () => {
-  const { loading, sharedFiles } = useSharedFiles();
-  console.log(sharedFiles);
+  const { areFilesLoading: loading, files: sharedFiles } =
+    useContext(FilesContext);
 
   return (
     <main className="md:col-span-3">

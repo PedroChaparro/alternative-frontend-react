@@ -11,10 +11,10 @@ import {
 import { Input } from "@/components/ui/input";
 import {
   AuthContext,
-  FilesDialogsContext,
-  UserFilesContext
+  FilesContext,
+  FilesDialogsContext
 } from "@/context/index";
-import { UserFilesActionTypes } from "@/hooks/user-files/UserFilesReducer";
+import { FilesActionType } from "@/hooks/user-files/filesReducer";
 import { renameFileService } from "@/services/files/rename-file.service";
 import { Dialogs } from "@/types/enums";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -34,7 +34,7 @@ const renameFileSchema = z.object({
 export const RenameFileForm = () => {
   const { selectedFile, closeDialog } = useContext(FilesDialogsContext);
   const { session } = useContext(AuthContext);
-  const { userFilesDispatcher } = useContext(UserFilesContext);
+  const { filesDispatcher } = useContext(FilesContext);
 
   const [loading, setLoading] = useState(false);
   const form = useForm<z.infer<typeof renameFileSchema>>({
@@ -64,8 +64,8 @@ export const RenameFileForm = () => {
       return;
     }
 
-    userFilesDispatcher({
-      type: UserFilesActionTypes.RENAME_FILE,
+    filesDispatcher({
+      type: FilesActionType.RENAME_FILE,
       payload: {
         uuid: selectedFile.uuid,
         name: newName
