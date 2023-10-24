@@ -63,30 +63,36 @@ export const DropDown = ({ file }: { file: File }) => {
             <Download className="mr-2 h-4 w-4" />
             Download file
           </DropdownMenuItem>
-          {sharedActions}
+          {file.isOwnedByUser && sharedActions}
         </DropdownMenuContent>
       );
     } else {
       return (
-        <DropdownMenuContent className="w-48">
-          {sharedActions}
-        </DropdownMenuContent>
+        file.isOwnedByUser && (
+          <DropdownMenuContent className="w-48">
+            {sharedActions}
+          </DropdownMenuContent>
+        )
       );
     }
   };
 
+  const options = getMenuOptions();
+
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button
-          variant={"ghost"}
-          className="absolute right-2 top-2 p-2"
-          aria-label={`More options for ${file.name}`}
-        >
-          <MoreVertical />
-        </Button>
-      </DropdownMenuTrigger>
-      {getMenuOptions()}
-    </DropdownMenu>
+    options && (
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button
+            variant={"ghost"}
+            className="absolute right-2 top-2 p-2"
+            aria-label={`More options for ${file.name}`}
+          >
+            <MoreVertical />
+          </Button>
+        </DropdownMenuTrigger>
+        {getMenuOptions()}
+      </DropdownMenu>
+    )
   );
 };

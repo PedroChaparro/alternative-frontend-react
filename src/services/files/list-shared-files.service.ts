@@ -4,8 +4,6 @@ import axios, { AxiosError } from "axios";
 
 type ListFilesRequest = {
   token: string;
-  directory: string | null;
-  isListedFromSharedFiles?: boolean;
 };
 
 type ListFilesResponse = {
@@ -14,19 +12,15 @@ type ListFilesResponse = {
   files: File[];
 };
 
-export const listFilesService = async ({
-  token,
-  directory,
-  isListedFromSharedFiles = false
-}: ListFilesRequest): Promise<ListFilesResponse> => {
-  const URL = directory
-    ? `${ENVIRONMENT.PROXY_BASE_URL}/file/list?directoryUUID=${directory}`
-    : `${ENVIRONMENT.PROXY_BASE_URL}/file/list`;
+export const listSharedFilesService = async (
+  req: ListFilesRequest
+): Promise<ListFilesResponse> => {
+  const URL = `${ENVIRONMENT.PROXY_BASE_URL}/file/shared`;
 
   try {
     const listFilesResponse = await axios.get(URL, {
       headers: {
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${req.token}`
       }
     });
     const { data } = listFilesResponse;
@@ -37,7 +31,7 @@ export const listFilesService = async ({
       files: data.files.map((file: File) => ({
         ...file,
         isReady: true,
-        isOwnedByUser: !isListedFromSharedFiles
+        isOwnedByUser: false
       }))
     };
   } catch (error) {

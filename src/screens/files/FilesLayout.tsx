@@ -28,7 +28,7 @@ export const FilesPageLayout = () => {
         <Button
           variant={"outline"}
           className="w-full max-w-xs"
-          onClick={() => navigate("/files/shared_with_me")}
+          onClick={() => navigate("/files/shared-with-me")}
         >
           Shared with me
         </Button>
