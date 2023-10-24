@@ -1,3 +1,12 @@
+## [0.11.1](https://github.com/PedroChaparro/alternative-frontend-react/compare/v0.11.0...v0.11.1) (2023-10-24)
+
+
+### Bug Fixes
+
+* Allow to upload content into shared folders ([#36](https://github.com/PedroChaparro/alternative-frontend-react/issues/36)) ([9edeb38](https://github.com/PedroChaparro/alternative-frontend-react/commit/9edeb380d5d23a89f856eeb34f63df4e8ba8e023))
+
+
+
 # [0.11.0](https://github.com/PedroChaparro/alternative-frontend-react/compare/v0.10.0...v0.11.0) (2023-10-24)
 
 
@@ -31,15 +40,6 @@
 ### Features
 
 * Access management dialog ([#27](https://github.com/PedroChaparro/alternative-frontend-react/issues/27)) ([24e4048](https://github.com/PedroChaparro/alternative-frontend-react/commit/24e40482f1c44e21ab25a52a758b1acf8cf7ef37))
-
-
-
-# [0.7.0](https://github.com/PedroChaparro/alternative-frontend-react/compare/v0.6.1...v0.7.0) (2023-10-20)
-
-
-### Features
-
-* Create folder ([#24](https://github.com/PedroChaparro/alternative-frontend-react/issues/24)) ([54dc7c1](https://github.com/PedroChaparro/alternative-frontend-react/commit/54dc7c15c36fa3b19bad68caed62a6c45e8ccb54))
 
 
 
