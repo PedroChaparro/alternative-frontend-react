@@ -42,7 +42,7 @@ export const FilesGrid = ({
 
   if (!areLoading && files.length === 0) {
     return (
-      <div className="flex flex-col space-y-4">
+      <div className="flex w-full flex-col space-y-4 text-center">
         {canGoBack && (
           <Button className="w-max" onClick={goBack}>
             <ArrowLeft className="mr-2" />
@@ -55,7 +55,7 @@ export const FilesGrid = ({
   }
 
   return (
-    <div className="space-y-4">
+    <div className="w-full space-y-4">
       {canGoBack && (
         <Button className="w-max" onClick={goBack}>
           <ArrowLeft className="mr-2" />
