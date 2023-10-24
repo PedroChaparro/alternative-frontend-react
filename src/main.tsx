@@ -11,6 +11,7 @@ import {
   FilesView,
   Landing,
   LoginPage,
+  LogoutPage,
   ProfilePage,
   RegisterPage,
   SharedFilesView
@@ -38,6 +39,14 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             element={
               <AuthMiddleware mustBeLoggedIn={false}>
                 <RegisterPage />
+              </AuthMiddleware>
+            }
+          />
+          <Route
+            path="/logout"
+            element={
+              <AuthMiddleware mustBeLoggedIn={true}>
+                <LogoutPage />
               </AuthMiddleware>
             }
           />
