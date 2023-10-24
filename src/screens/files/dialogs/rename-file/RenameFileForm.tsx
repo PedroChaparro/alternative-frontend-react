@@ -34,7 +34,7 @@ const renameFileSchema = z.object({
 export const RenameFileForm = () => {
   const { selectedFile, closeDialog } = useContext(FilesDialogsContext);
   const { session } = useContext(AuthContext);
-  const { userFilesDispatcher } = useContext(FilesContext);
+  const { filesDispatcher } = useContext(FilesContext);
 
   const [loading, setLoading] = useState(false);
   const form = useForm<z.infer<typeof renameFileSchema>>({
@@ -64,7 +64,7 @@ export const RenameFileForm = () => {
       return;
     }
 
-    userFilesDispatcher({
+    filesDispatcher({
       type: FilesActionType.RENAME_FILE,
       payload: {
         uuid: selectedFile.uuid,

@@ -27,7 +27,7 @@ export const UploadFileForm = ({
   const directory = getParam(NavigationParams.DIRECTORY);
 
   // Files state
-  const { userFilesDispatcher } = useContext(FilesContext);
+  const { filesDispatcher } = useContext(FilesContext);
   const [files, setFiles] = useState<FileList | null>(null);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -88,7 +88,7 @@ export const UploadFileForm = ({
           size: 0
         };
 
-        userFilesDispatcher({
+        filesDispatcher({
           type: FilesActionType.ADD_FILE,
           payload: newFile
         });

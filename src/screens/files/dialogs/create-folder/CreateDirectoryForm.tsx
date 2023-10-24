@@ -38,7 +38,7 @@ export const CreateDirectoryForm = () => {
 
   const { closeDialog } = useContext(FilesDialogsContext);
   const { session } = useContext(AuthContext);
-  const { userFilesDispatcher } = useContext(FilesContext);
+  const { filesDispatcher } = useContext(FilesContext);
 
   const [loading, setLoading] = useState(false);
   const form = useForm<z.infer<typeof createDirectorySchema>>({
@@ -68,7 +68,7 @@ export const CreateDirectoryForm = () => {
       return;
     }
 
-    userFilesDispatcher({
+    filesDispatcher({
       type: FilesActionType.ADD_FILE,
       payload: {
         uuid: res.directoryUUID,

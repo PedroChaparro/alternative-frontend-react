@@ -27,7 +27,7 @@ export const MoveFileDialog = () => {
   const { session } = useContext(AuthContext);
 
   // Files state
-  const { userFilesDispatcher } = useContext(FilesContext);
+  const { filesDispatcher } = useContext(FilesContext);
 
   // Navigation state
   const { clearHistory, getParam } = useContext(FoldersNavigationContext);
@@ -85,7 +85,7 @@ export const MoveFileDialog = () => {
     closeDialog(Dialogs.MOVE_FILE);
 
     // Remove the file from the ui
-    userFilesDispatcher({
+    filesDispatcher({
       type: FilesActionType.REMOVE_FILE,
       payload: { uuid: selectedFile.uuid }
     });

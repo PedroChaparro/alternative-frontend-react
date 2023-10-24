@@ -45,7 +45,7 @@ export const FileCard = ({ file }: { file: File }) => {
 
   const { pushToHistory } = useContext(FoldersNavigationContext);
 
-  const { userFilesDispatcher } = useContext(FilesContext);
+  const { filesDispatcher } = useContext(FilesContext);
   const { dialogsOpenState } = useContext(FilesDialogsContext);
 
   const downloadFile = async () => {
@@ -89,7 +89,7 @@ export const FileCard = ({ file }: { file: File }) => {
         return false;
       }
 
-      userFilesDispatcher({
+      filesDispatcher({
         type: FilesActionType.MARK_FILE_AS_READY,
         payload: res.file
       });
@@ -103,7 +103,7 @@ export const FileCard = ({ file }: { file: File }) => {
         toast.error("Max ready checks reached");
 
         // Remove file from the UI
-        userFilesDispatcher({
+        filesDispatcher({
           type: FilesActionType.REMOVE_FILE,
           payload: file
         });
