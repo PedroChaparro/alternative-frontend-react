@@ -4,7 +4,11 @@ import { NavigationParams } from "@/types/enums";
 import { useContext } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 
-import { CreateDirectoryDialog, UploadFileDialog } from "./dialogs";
+import {
+  CreateDirectoryDialog,
+  RemoveFileDialog,
+  UploadFileDialog
+} from "./dialogs";
 import { AccessManagementDialog } from "./dialogs/access-management/AccessManagementDialog";
 import { MoveFileDialog } from "./dialogs/move-file/MoveFileDialog";
 import { RenameFileDialog } from "./dialogs/rename-file/RenameFileDialog";
@@ -42,6 +46,7 @@ export const FilesPageLayout = () => {
       <Outlet />
       {dialogsOpenState.RENAME_FILE && <RenameFileDialog />}
       {dialogsOpenState.MOVE_FILE && <MoveFileDialog />}
+      {dialogsOpenState.REMOVE_FILE && <RemoveFileDialog />}
       {dialogsOpenState.ACCESS_MANAGEMENT && <AccessManagementDialog />}
     </div>
   );
