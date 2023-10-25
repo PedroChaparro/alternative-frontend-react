@@ -8,11 +8,16 @@ import {
   AlertDialogHeader,
   AlertDialogTitle
 } from "@/components/ui/alert-dialog";
-import { FilesDialogsContext } from "@/context";
+import { AuthContext, FilesContext, FilesDialogsContext } from "@/context";
+import { FilesActionType } from "@/hooks/user-files/filesReducer";
+import { removeFileService } from "@/services/files/remove-file.service";
 import { Dialogs } from "@/types/enums";
 import { useContext } from "react";
+import { toast } from "sonner";
 
 export const RemoveFileDialog = () => {
+  const { filesDispatcher } = useContext(FilesContext);
+  const { session } = useContext(AuthContext);
   const { dialogsOpenState, selectedFile, updateDialogOpenState } =
     useContext(FilesDialogsContext);
 
@@ -22,6 +27,30 @@ export const RemoveFileDialog = () => {
   const dialogDescription = selectedFile?.isFile
     ? "This action cannot be undone."
     : "This action cannot be undone. All files and folders inside this folder will be removed.";
+
+  const handleRemove = async () => {
+    if (!selectedFile) {
+      toast.error("No valid file selected for deletion.");
+      return;
+    }
+    const { success, msg } = await removeFileService({
+      fileUUID: selectedFile.uuid,
+      token: session?.token as string
+    });
+
+    if (!success) {
+      toast.error(msg);
+      return;
+    }
+
+    filesDispatcher({
+      type: FilesActionType.REMOVE_FILE,
+      payload: {
+        uuid: selectedFile.uuid
+      }
+    });
+    toast.success(msg);
+  };
 
   return (
     <AlertDialog
@@ -37,9 +66,7 @@ export const RemoveFileDialog = () => {
           <AlertDialogCancel onClick={() => console.log("Close")}>
             Cancel
           </AlertDialogCancel>
-          <AlertDialogAction onClick={() => console.log("Remove")}>
-            Remove
-          </AlertDialogAction>
+          <AlertDialogAction onClick={handleRemove}>Remove</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
