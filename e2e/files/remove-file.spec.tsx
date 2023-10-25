@@ -82,7 +82,10 @@ test.describe.serial("Users can remove a file", () => {
     // Assert the modal is closed
     await expect(page.getByRole("dialog")).not.toBeVisible();
 
-    await expect(page.getByText("yellow.jpg")).not.toBeVisible();
+    // Assert the file is not visible
+    await expect(
+      page.getByRole("button", { name: "yellow.jpg card" })
+    ).not.toBeVisible();
 
     // Assert an alert is shown
     await expect(page.getByText("File successfully deleted")).toBeVisible();
