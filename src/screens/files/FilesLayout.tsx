@@ -6,7 +6,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 
 import {
   CreateDirectoryDialog,
-  DeleteFileDialog,
+  RemoveFileDialog,
   UploadFileDialog
 } from "./dialogs";
 import { AccessManagementDialog } from "./dialogs/access-management/AccessManagementDialog";
@@ -46,7 +46,7 @@ export const FilesPageLayout = () => {
       <Outlet />
       {dialogsOpenState.RENAME_FILE && <RenameFileDialog />}
       {dialogsOpenState.MOVE_FILE && <MoveFileDialog />}
-      {dialogsOpenState.REMOVE_FILE && <DeleteFileDialog />}
+      {dialogsOpenState.REMOVE_FILE && <RemoveFileDialog />}
       {dialogsOpenState.ACCESS_MANAGEMENT && <AccessManagementDialog />}
     </div>
   );
