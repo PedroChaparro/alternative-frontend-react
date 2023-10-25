@@ -6,7 +6,7 @@ import {
   FoldersNavigationContext
 } from "@/context/index";
 import { FilesActionType } from "@/hooks/user-files/filesReducer";
-import { downloadBlob } from "@/lib/utils";
+import { downloadBlob, getSizeWithUnits } from "@/lib/index";
 import { downloadFileService } from "@/services/files/download-file.service";
 import { getFileByUUIDService } from "@/services/files/get-file-by-uuid.service";
 import { File } from "@/types/entities";
@@ -146,7 +146,8 @@ export const FileCard = ({ file }: { file: File }) => {
         </span>
         {file.isFile && (
           <span className="line-clamp-1 max-w-full text-sm text-foreground/75">
-            <span className="font-semibold">Size:</span> {file.size} KB
+            <span className="font-semibold">Size:</span>{" "}
+            {getSizeWithUnits(file.size)}
           </span>
         )}
       </article>
