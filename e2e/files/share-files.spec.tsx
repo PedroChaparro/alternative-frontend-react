@@ -146,4 +146,48 @@ test.describe.serial("Users can share files", () => {
     // Assert the shared file is shown
     await expect(page.getByText("yellow.jpg")).toBeVisible();
   });
+
+  test("Users can un-share a file", async ({ page }) => {
+    // Login with the owner user
+    await page.goto("/login");
+    await page.getByLabel("Username").fill(username);
+    await page.getByLabel("Password", { exact: true }).fill(password);
+    await page.getByRole("button", { name: "Submit", exact: true }).click();
+    await page.waitForURL(/\/files$/);
+
+    // Open the folder dropdown
+    const folderCard = page.getByRole("button", {
+      name: `${sharedFolder} card`
+    });
+    await expect(folderCard).toBeVisible();
+    await folderCard.getByLabel(`More options for ${sharedFolder}`).click();
+
+    // Select the "Manage access" option
+    const shareButton = page.getByRole("menuitem", {
+      name: "Manage access",
+      exact: true
+    });
+    await expect(shareButton).toBeVisible();
+    await shareButton.click();
+
+    // Assert modal is open
+    await expect(page.getByRole("dialog")).toBeVisible();
+    await expect(page.getByText("Manage access")).toBeVisible();
+
+    // Assert the other user is shown
+    const userRow = page.getByText(new RegExp(usernameShare, "i"));
+    await expect(userRow).toBeVisible();
+
+    // Unshare the file
+    const unShareButton = page.getByRole("button", {
+      name: `Un-share with ${usernameShare}`
+    });
+    await unShareButton.click();
+
+    // Assert an alert is shown
+    await expect(page.getByText("File unshared successfully")).toBeVisible();
+
+    // Assert the other user does not appears
+    await expect(userRow).not.toBeVisible();
+  });
 });
