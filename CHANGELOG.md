@@ -1,3 +1,12 @@
+# [0.15.0](https://github.com/PedroChaparro/alternative-frontend-react/compare/v0.14.0...v0.15.0) (2023-10-25)
+
+
+### Features
+
+* Unshare file ([#44](https://github.com/PedroChaparro/alternative-frontend-react/issues/44)) ([8bb105c](https://github.com/PedroChaparro/alternative-frontend-react/commit/8bb105c20762c59c522ec5c3b6587597920c1f49))
+
+
+
 # [0.14.0](https://github.com/PedroChaparro/alternative-frontend-react/compare/v0.13.0...v0.14.0) (2023-10-25)
 
 
@@ -31,15 +40,6 @@
 ### Bug Fixes
 
 * Allow to upload content into shared folders ([#36](https://github.com/PedroChaparro/alternative-frontend-react/issues/36)) ([9edeb38](https://github.com/PedroChaparro/alternative-frontend-react/commit/9edeb380d5d23a89f856eeb34f63df4e8ba8e023))
-
-
-
-# [0.11.0](https://github.com/PedroChaparro/alternative-frontend-react/compare/v0.10.0...v0.11.0) (2023-10-24)
-
-
-### Features
-
-* List shared files ([#33](https://github.com/PedroChaparro/alternative-frontend-react/issues/33)) ([b19c51f](https://github.com/PedroChaparro/alternative-frontend-react/commit/b19c51f733526ecefe01806ea6112aadeb275532))
 
 
 
