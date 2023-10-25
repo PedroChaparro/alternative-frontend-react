@@ -1,4 +1,8 @@
 import { Button } from "@/components/ui/button";
+import { AuthContext, FilesDialogsContext } from "@/context";
+import { unshareFileService } from "@/services/files/unshare-file.service";
+import { useContext } from "react";
+import { toast } from "sonner";
 
 interface UserWithAccessRowProps {
   user: string;
@@ -9,11 +13,24 @@ export const UserWithAccessRow = ({
   user,
   unshareCallback
 }: UserWithAccessRowProps) => {
-  const handleUnshare = () => {
-    // TODO: Make the request to unshare the file
+  const { session } = useContext(AuthContext);
+  const { selectedFile } = useContext(FilesDialogsContext);
 
-    // Remove the user from the UI
-    unshareCallback(user);
+  const handleUnshare = async (userName: string) => {
+    const unShareRequest = {
+      token: session?.token as string,
+      fileUUID: selectedFile?.uuid as string,
+      otherUsername: userName
+    };
+
+    const { success, msg } = await unshareFileService(unShareRequest);
+    if (!success) {
+      toast.error(msg);
+      return;
+    }
+
+    toast.success(msg);
+    unshareCallback(userName);
   };
 
   return (
@@ -25,7 +42,7 @@ export const UserWithAccessRow = ({
       <Button
         variant={"destructive"}
         aria-label={`Un-share with ${user}`}
-        onClick={handleUnshare}
+        onClick={() => handleUnshare(user)}
       >
         Un-share
       </Button>
