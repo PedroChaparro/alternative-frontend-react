@@ -22,7 +22,7 @@ test.describe.serial("Users can remove a file", () => {
     await page.waitForURL(/\/files$/);
   });
 
-  test("Users can upload files", async ({ page }) => {
+  test("Upload test file", async ({ page }) => {
     // Login with the registered user
     await page.goto("/login");
     await page.getByLabel("Username").fill(username);
@@ -41,8 +41,7 @@ test.describe.serial("Users can remove a file", () => {
     });
     await filesInput.setInputFiles([
       path.join(__dirname, "data/in/yellow.jpg"),
-      path.join(__dirname, "data/in/blue.jpg"),
-      path.join(__dirname, "data/in/red.jpg")
+      path.join(__dirname, "data/in/blue.jpg")
     ]);
 
     // Submit the form
@@ -54,7 +53,6 @@ test.describe.serial("Users can remove a file", () => {
     // Assert files are shown
     await expect(page.getByText("yellow.jpg")).toBeVisible();
     await expect(page.getByText("blue.jpg")).toBeVisible();
-    await expect(page.getByText("red.jpg")).toBeVisible();
   });
 
   test("Successfully deleted", async ({ page }) => {

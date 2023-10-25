@@ -29,12 +29,8 @@ export const RemoveFileDialog = () => {
     : "This action cannot be undone. All files and folders inside this folder will be removed.";
 
   const handleRemove = async () => {
-    if (!selectedFile) {
-      toast.error("No valid file selected for deletion.");
-      return;
-    }
     const { success, msg } = await removeFileService({
-      fileUUID: selectedFile.uuid,
+      fileUUID: selectedFile?.uuid as string,
       token: session?.token as string
     });
 
@@ -46,7 +42,7 @@ export const RemoveFileDialog = () => {
     filesDispatcher({
       type: FilesActionType.REMOVE_FILE,
       payload: {
-        uuid: selectedFile.uuid
+        uuid: selectedFile?.uuid as string
       }
     });
     toast.success(msg);
@@ -63,9 +59,7 @@ export const RemoveFileDialog = () => {
           <AlertDialogDescription>{dialogDescription}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel onClick={() => console.log("Close")}>
-            Cancel
-          </AlertDialogCancel>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction onClick={handleRemove}>Remove</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

@@ -25,18 +25,11 @@ export const removeFileService = async (
     );
 
     const { data } = deleteFileResponse;
-
-    if (deleteFileResponse.status === 200) {
-      return {
-        success: true,
-        msg: data.msg
-      };
-    } else {
-      return {
-        success: false,
-        msg: data.msg
-      };
-    }
+    return {
+      success: true,
+      msg: data.msg
+    };
+    
   } catch (error) {
     let errorMsg = "There was an error while trying to delete the file";
 
