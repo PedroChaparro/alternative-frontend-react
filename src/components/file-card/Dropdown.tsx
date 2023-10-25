@@ -3,7 +3,14 @@
 import { FilesDialogsContext } from "@/context/index";
 import { File } from "@/types/entities";
 import { Dialogs } from "@/types/enums";
-import { Download, Key, MoreVertical, PenBox, Truck } from "lucide-react";
+import {
+  Download,
+  Key,
+  MoreVertical,
+  PenBox,
+  Trash2,
+  Truck
+} from "lucide-react";
 import { useContext } from "react";
 
 import { Button } from "../ui/button";
@@ -38,12 +45,17 @@ export const DropDown = ({ file }: { file: File }) => {
           <Truck className="mr-2 h-4 w-4" />
           Move {file.isFile ? "file" : "directory"}
         </DropdownMenuItem>
-        {/*
-          <DropdownMenuItem>
-            <Trash2 className="mr-2 h-4 w-4" />
-            Remove {file.isFile ? "file" : "directory"}
-          </DropdownMenuItem>
-        */}
+
+        <DropdownMenuItem
+          onClick={(e) => {
+            e.stopPropagation();
+            openDialog(Dialogs.REMOVE_FILE, file);
+          }}
+        >
+          <Trash2 className="mr-2 h-4 w-4" />
+          Remove {file.isFile ? "file" : "directory"}
+        </DropdownMenuItem>
+
         <DropdownMenuItem
           onClick={(e) => {
             e.stopPropagation();
