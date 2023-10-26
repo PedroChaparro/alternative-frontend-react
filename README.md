@@ -31,6 +31,18 @@
    <img style="width:525px" src="https://i.ibb.co/k8VJMyC/capyfile-web.jpg" alt="CapyFile client preview"/>
 </div>
 
+## Differences with the official client 🤔
+
+- This client is built with shadcn/ui which contributes to having consistent styles across the application and improves the user experience and accessibility (Ex: Keyboard navigation ⌨️).
+
+- All features are implemented in this client ✨.
+
+- All the domain use cases are tested with end-to-end tests using playwright 🧪.
+
+- Some features are implemented using React Hooks (Eg: [filesReducer.tsx](./src/hooks/user-files/filesReducer.tsx)) and the Context API, which makes the code more readable and maintainable without the need to use a state management library like Redux ⚛️.
+
+- This project has a custom [Navigation Implementation](./src/context/files/FoldersNavigationContext.tsx) based on a Queue, which allows the user to navigate through the folders using a "go back" button ⏪.
+
 ## Development 🛠️
 
 1. Clone the project
