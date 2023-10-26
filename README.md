@@ -1,5 +1,32 @@
 # CapyFile Alternative Web Client
 
+<p align="center">
+   <a href="https://github.com/PedroChaparro/alternative-frontend-react/actions/workflows/integration.yaml">
+      <img alt="Github Actions Integration Status" src="https://github.com/PedroChaparro/alternative-frontend-react/actions/workflows/integration.yaml/badge.svg">
+   </a>
+   <a href="https://github.com/PedroChaparro/alternative-frontend-react/actions/workflows/tagging.yaml">
+      <img alt="Github Actions Tagging Status" src="https://github.com/PedroChaparro/alternative-frontend-react/actions/workflows/tagging.yaml/badge.svg?branch=dev">
+   </a>
+   <a href="https://github.com/PedroChaparro/alternative-frontend-react/actions/workflows/release.yaml">
+      <img alt="Github Actions Release Status" src="https://github.com/PedroChaparro/alternative-frontend-react/actions/workflows/release.yaml/badge.svg?branch=main">
+   </a>
+   <br />
+   <a href="https://github.com/prettier/prettier">
+      <img alt="code style: prettier" src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square">
+   </a>
+   <a href="https://github.com/eslint/eslint">
+      <img alt="linter: eslint" src="https://img.shields.io/badge/linter-eslint-7C7CEA.svg?style=flat-square">
+   </a>
+   <a href="https://github.com/microsoft/playwright">
+      <img alt="testing: playwright" src="https://img.shields.io/badge/testing-playwright-A6D388.svg?style=flat-square">
+   </a>
+   <a href="https://github.com/shadcn-ui/ui">
+      <img alt="UI library: shadcn/ui" src="https://img.shields.io/badge/UI_library-shadcn/ui-000.svg?style=flat-square">
+   </a>
+</p>
+
+## Preview 🖼️
+
 <div align="center">
    <img style="width:525px" src="https://i.ibb.co/k8VJMyC/capyfile-web.jpg" alt="CapyFile client preview"/>
 </div>
