@@ -28,8 +28,9 @@
 ## Preview 🖼️
 
 <div align="center">
-   <img style="width:525px" src="https://i.ibb.co/k8VJMyC/capyfile-web.jpg" alt="CapyFile client preview"/>
+   <img style="width:525px" src="https://github.com/PedroChaparro/alternative-frontend-react/assets/62714297/1895de2f-6a82-4823-b4cb-5e3d9ead1cc3" alt="CapyFile client preview"/>
 </div>
+![capyfile-web]()
 
 ## Differences with the official client 🤔
 
