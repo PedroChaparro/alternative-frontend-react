@@ -1,7 +1,7 @@
 # CapyFile Alternative Web Client
 
 <div align="center">
-   <img style="width:525px" src="https://github.com/PedroChaparro/unofficial-frontend-react/assets/62714297/706026ba-6ba6-4676-b17e-9dd7d36a7ad6" alt="CapyFile client preview"/>
+   <img style="width:525px" src="https://i.ibb.co/k8VJMyC/capyfile-web.jpg" alt="CapyFile client preview"/>
 </div>
 
 ## Development 🛠️
